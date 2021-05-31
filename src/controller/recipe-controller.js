@@ -1,46 +1,27 @@
-import * as Recipe from "../model/recipe"
+import * as recipeService from "../service/recipe-service"
+import express from "express"
 
-const list = async (req, res) => {
-    try {
-        const newRecipe = req.body;
-        res.status(200).json({});
-    }
-    catch (e) {
-        res.status(200).json({exception: e});
-    }
-}
+const router = express.Router()
 
-const create = async (req, res) => {
-    try {
-        const newRecipe = req.body;
-        res.status(200).json({});
-    }
-    catch (e) {
-        res.status(200).json({exception: e});
-    }
-}
+router.post("/create", async (req, res) => {
+    await recipeService.create(req, res)
+})
 
-const update = async (req, res) => {
-    try {
-        const newRecipe = req.body;
-        res.status(200).json({});
-    }
-    catch (e) {
-        res.status(200).json({exception: e});
-    }
-}
+router.get("/get", async (req, res) => {
+    await recipeService.get(req, res)
+})
 
-const remove = async (req, res) => {
-    try {
-        const newRecipe = req.body;
-        res.status(200).json({});
-    }
-    catch (e) {
-        res.status(200).json({exception: e});
-    }
-}
+router.put("/update", async (req, res) => {
+    await recipeService.update(req, res)
+})
 
-exports.list = list
-exports.create = create
-exports.update = update
-exports.remove = remove
+router.delete("/delete", async (req, res) => {
+    await recipeService.remove(req, res)
+})
+
+router.get("/list", async (req, res) => {
+    await recipeService.list(req, res)
+})
+
+module.exports = router
+
