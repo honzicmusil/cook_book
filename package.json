@@ -1,7 +1,16 @@
 {
   "name": "cook_book",
   "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
   "dependencies": {
-    
+    "ajv": "^8.2.0",
+    "busboy": "^0.3.1",
+    "express": "^4.17.1"
   }
 }
