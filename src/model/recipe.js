@@ -1,4 +1,4 @@
-import { uuid } from "uuidv4"
+const { uuid } = require("uuidv4")
 
 class Recipe {
     constructor(name, code, description, preparationLength, materials) {
@@ -10,4 +10,4 @@ class Recipe {
     }
 }
 
-export default Recipe
+exports.Recipe = Recipe

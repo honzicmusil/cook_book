@@ -1,5 +1,5 @@
-import * as recipeService from "../service/recipe-service"
-import express from "express"
+const recipeService = require("../service/recipe-service")
+const express = require("express")
 
 const router = express.Router()
 

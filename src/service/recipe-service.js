@@ -1,5 +1,5 @@
-import RecipeDao from "../dao/recipe-dao"
-import Recipe from "../model/recipe"
+const RecipeDao = require("../dao/recipe-dao")
+const Recipe = require("../model/recipe")
 
 let recipeDao = new RecipeDao()
 

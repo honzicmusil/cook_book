@@ -1,8 +1,8 @@
 "use strict"
-import * as recipeController from "../cook_book/src/controller/recipe-controller"
-import * as materialController from "../cook_book/src/controller/material-controller"
-import express from "express"
-import path from "path"
+const recipeController = require("../cook_book/src/controller/recipe-controller")
+const materialController = require("../cook_book/src/controller/material-controller")
+const express = require("express")
+const path = require('path')
 
 
 const app = express()

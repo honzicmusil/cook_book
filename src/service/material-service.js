@@ -1,5 +1,5 @@
-import MaterialDao from "../dao/material-dao"
-import Material from "../model/material"
+const MaterialDao = require("../dao/material-dao")
+const Material = require("../model/material")
 
 let materialDao = new MaterialDao()
 

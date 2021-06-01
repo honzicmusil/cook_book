@@ -1,4 +1,4 @@
-import { uuid } from "uuidv4"
+const { uuid }= require( "uuidv4")
 
 class Material {
     constructor(name, code) {
@@ -8,4 +8,4 @@ class Material {
     }
 }
 
-export default Material
+exports.Material = Material

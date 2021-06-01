@@ -1,5 +1,5 @@
-import * as materialService from "../service/material-service"
-import express from "express"
+const materialService = require("../service/material-service")
+const express = require("express")
 
 const router = express.Router()
 
