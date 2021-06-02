@@ -1,0 +1,27 @@
+<ul>
+  <ng-template *ngIf="menuItems">
+    <ng-template
+      *ngFor="let menuItem of menuItems"
+      [ngTemplateOutlet]="item"
+      [ngTemplateOutletContext]="{ $implicit: menuItem }"
+    >
+    </ng-template>
+  </ng-template>
+  <ng-content></ng-content>
+</ul>
+
+<ng-template #item let-menuItem>
+  <li *ngIf="menuItem && menuItem.visible !== false" class="li">
+    <ral-side-menu-item
+      [disabled]="menuItem.disabled"
+      [label]="menuItem?.label"
+      [icon]="menuItem?.icon"
+      [routerLink]="menuItem?.routerLink"
+    ></ral-side-menu-item>
+
+    <ul *ngIf="menuItem.items && menuItem.items.length > 0">
+      <ng-template ngFor [ngForOf]="menuItem.items" [ngForTemplate]="item">
+      </ng-template>
+    </ul>
+  </li>
+</ng-template>

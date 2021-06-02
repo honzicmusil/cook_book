@@ -1,0 +1,256 @@
+.e-lib.e-btn,
+.e-css.e-btn {
+  &.e-decent {
+    //background-color: $btn-outline-bgcolor;
+    //border-color: $btn-outline-border-color;
+    box-shadow: $btn-flat-box-shadow;
+
+    color: $btn-outline-color;
+    background-color: transparent !important;
+    border-color: transparent !important;
+    //border: transparent ! important;
+
+    &:hover {
+      box-shadow: $btn-flat-box-shadow;
+      color: $btn-outline-hover-border-color;
+      background-color: #f2f4f6 !important;
+      //background-color: $gray-400 !important;
+    }
+
+    &:focus {
+      color: $btn-outline-default-focus-border-color;
+      background-color: $gray-200 !important;
+      $color-rgba: rgba(
+        mix(
+          lighten($btn-outline-focus-bgcolor, 50%),
+          $btn-outline-default-focus-border-color,
+          0.15
+        ),
+        0.5
+      );
+      box-shadow: 0 0 0 0.25em $color-rgba;
+    }
+
+    &:active,
+    &.e-active {
+      color: $btn-bgcolor;
+      background-color: $gray-300 !important;
+      $color-rgba: rgba(
+        mix(
+          lighten($btn-outline-active-bgcolor, 50%),
+          $btn-outline-active-border-color,
+          0.15
+        ),
+        0.5
+      );
+      box-shadow: 0 0 0 0.25em $color-rgba;
+    }
+
+    &:disabled {
+      color: $btn-outline-disabled-border-color;
+    }
+
+    &.e-primary {
+      color: $btn-outline-primary-color;
+
+      &:hover {
+        color: $btn-outline-primary-hover-border-color;
+      }
+
+      &:focus {
+        color: $btn-outline-primary-focus-border-color;
+
+        $color-rgba: rgba(
+          mix(
+            lighten($btn-outline-primary-focus-bgcolor, 50%),
+            $btn-outline-primary-focus-border-color,
+            0.15
+          ),
+          0.5
+        );
+        box-shadow: 0 0 0 0.25em $color-rgba;
+      }
+
+      &:active,
+      &.e-active {
+        color: $btn-primary-bgcolor;
+
+        $color-rgba: rgba(
+          mix(
+            lighten($btn-primary-active-bgcolor, 50%),
+            $btn-outline-primary-active-border-color,
+            0.15
+          ),
+          0.5
+        );
+        box-shadow: 0 0 0 0.25em $color-rgba;
+      }
+
+      &:disabled {
+        color: $btn-outline-bgcolor;
+        box-shadow: $btn-flat-box-shadow;
+      }
+    }
+
+    &.e-success {
+      color: $btn-success-bgcolor;
+
+      &:hover {
+        color: $btn-success-bgcolor;
+      }
+
+      &:focus {
+        color: $btn-success-focus-bgcolor;
+        $color-rgba: rgba(
+          mix(
+            lighten($btn-success-focus-bgcolor, 50%),
+            $btn-success-focus-border-color,
+            0.15
+          ),
+          0.5
+        );
+        box-shadow: 0 0 0 0.25em $color-rgba;
+      }
+
+      &:active,
+      &.e-active {
+        color: $btn-success-bgcolor;
+        $color-rgba: rgba(
+          mix(
+            lighten($btn-success-active-bgcolor, 50%),
+            $btn-success-active-border-color,
+            0.15
+          ),
+          0.5
+        );
+        box-shadow: 0 0 0 0.25em $color-rgba;
+      }
+
+      &:disabled {
+        color: $btn-outline-bgcolor;
+        box-shadow: $btn-flat-box-shadow;
+      }
+    }
+
+    &.e-info {
+      color: $btn-info-bgcolor;
+
+      &:hover {
+        color: $btn-info-bgcolor;
+      }
+
+      &:focus {
+        color: $btn-info-hover-bgcolor;
+        $color-rgba: rgba(
+          mix(
+            lighten($btn-info-hover-bgcolor, 50%),
+            $btn-info-focus-border-color,
+            0.15
+          ),
+          0.5
+        );
+        box-shadow: 0 0 0 0.25em $color-rgba;
+      }
+
+      &:active,
+      &.e-active {
+        color: $btn-info-bgcolor;
+        $color-rgba: rgba(
+          mix(
+            lighten($btn-info-active-bgcolor, 50%),
+            $btn-info-active-border-color,
+            0.15
+          ),
+          0.5
+        );
+        box-shadow: 0 0 0 0.25em $color-rgba;
+      }
+
+      &:disabled {
+        color: $btn-outline-bgcolor;
+        box-shadow: $btn-flat-box-shadow;
+      }
+    }
+
+    &.e-warning {
+      color: $btn-warning-bgcolor;
+
+      &:hover {
+        color: $btn-warning-bgcolor;
+      }
+
+      &:focus {
+        color: $btn-warning-hover-bgcolor;
+        $color-rgba: rgba(
+          mix(
+            lighten($btn-warning-hover-bgcolor, 50%),
+            $btn-warning-focus-border-color,
+            0.15
+          ),
+          0.5
+        );
+        box-shadow: 0 0 0 0.25em $color-rgba;
+      }
+
+      &:active,
+      &.e-active {
+        color: $btn-warning-bgcolor;
+        $color-rgba: rgba(
+          mix(
+            lighten($btn-warning-active-bgcolor, 50%),
+            $btn-warning-active-border-color,
+            0.15
+          ),
+          0.5
+        );
+        box-shadow: 0 0 0 0.25em $color-rgba;
+      }
+
+      &:disabled {
+        color: $btn-outline-bgcolor;
+        box-shadow: $btn-flat-box-shadow;
+      }
+    }
+
+    &.e-danger {
+      color: $btn-danger-bgcolor;
+
+      &:hover {
+        color: $btn-danger-bgcolor;
+      }
+
+      &:focus {
+        color: $btn-danger-hover-bgcolor;
+        $color-rgba: rgba(
+          mix(
+            lighten($btn-danger-hover-bgcolor, 50%),
+            $btn-danger-focus-border-color,
+            0.15
+          ),
+          0.5
+        );
+        box-shadow: 0 0 0 0.25em $color-rgba;
+      }
+
+      &:active,
+      &.e-active {
+        color: $btn-danger-bgcolor;
+
+        $color-rgba: rgba(
+          mix(
+            lighten($btn-danger-active-bgcolor, 50%),
+            $btn-danger-active-border-color,
+            0.15
+          ),
+          0.5
+        );
+        box-shadow: 0 0 0 0.25em $color-rgba;
+      }
+
+      &:disabled {
+        color: $btn-outline-bgcolor;
+        box-shadow: $btn-flat-box-shadow;
+      }
+    }
+  }
+}

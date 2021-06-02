@@ -1,0 +1,25 @@
+<div class="root-layout" [attr.data-theme]="colorScheme$ | async" [class.root-layout--open]="isMenuOpen$ | async">
+  <div class="root-layout__top-bar">
+    <ral-admin-top-bar [displayName]="displayName" (logoutClick)="this.logout()" (toggleClick)="toggleSideNav()">
+    </ral-admin-top-bar>
+  </div>
+
+  <div class="root-layout__side-bar">
+    <ral-side-logo-header (toggleClick)="toggleSideNav()" title="MSWA Cookbook"></ral-side-logo-header>
+    <ral-side-menu>
+      <ral-side-menu-item [label]="'recipes'" [icon]="'fa-receipt'" [routerLink]="['/', 'app', 'recipes']">
+      </ral-side-menu-item>
+      <ral-side-menu-item [label]="'materials'" [icon]="'fa-wine-bottle'" [routerLink]="['/', 'app', 'materials']"
+        severity="warning">
+      </ral-side-menu-item>
+    </ral-side-menu>
+  </div>
+
+  <div class="root-layout__main">
+    <div class="root-layout__main__inner">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>
+
+<ral-toast> </ral-toast>

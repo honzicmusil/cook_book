@@ -1,0 +1,48 @@
+@mixin animation($a, $b: 0.3s, $c: ease-out) {
+  transition: $a $b $c;
+}
+
+@mixin radius($radius: $border-radius) {
+  border-radius: $radius;
+}
+
+@mixin ellipsis() {
+  text-overflow: ellipsis;
+  max-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+// CORE
+
+@mixin max($media) {
+  @media screen and (max-width: $media - 1) {
+    @content;
+  }
+}
+
+@mixin min($media) {
+  @media screen and (min-width: $media) {
+    @content;
+  }
+}
+
+// Create Aspect Ratio with padding-bottom on :pseudo element
+@mixin aspectRatio($ratio) {
+  $percent: #{$ratio * 100 * 1%};
+
+  &:before {
+    display: block;
+    content: '';
+    padding-bottom: $percent;
+  }
+}
+
+@mixin object-fit($behavior) {
+  object-fit: $behavior;
+  font-family: 'object-fit: #{$behavior}';
+}
+
+@function em($pixels, $context: $browser-context) {
+  @return #{$pixels/$context}em;
+}

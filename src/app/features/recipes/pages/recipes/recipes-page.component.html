@@ -1,0 +1,13 @@
+<ral-title heading="Recipes">
+
+  <button [routerLink]="['create-recipe']" label="Create" pButton></button>
+</ral-title>
+
+<cook-book-recipes-grid [linkToDetail]="linkToDetail" [data]="recipesPageStore$.data$ | async"
+  (lazyLoad)="recipesPageStore$.onLazyLoad($event)"></cook-book-recipes-grid>
+
+
+
+<pre>
+  {{recipesPageStore$.data$ | async | json}}
+</pre>

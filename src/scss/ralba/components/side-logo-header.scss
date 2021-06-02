@@ -1,0 +1,65 @@
+.side-bar-logo {
+  @include bar-height(height);
+  border-bottom-color: var(--surface-d);
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  padding: 1px 24px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  background: var(--surface-a);
+  z-index: 1;
+  width: 100%;
+  max-width: $side-nav-width;
+  @include breakpoint(md) {
+    width: $side-nav-width;
+  }
+
+  .p-grid {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: calc(100% - 64px);
+  }
+  img {
+    max-height: 34px;
+    max-width: 34px;
+    border-radius: $border-radius;
+    overflow: hidden;
+    display: none;
+    @include breakpoint(md) {
+      display: block;
+    }
+  }
+  &__text {
+    display: inline-block;
+    position: relative;
+    flex-shrink: 1;
+  }
+  .app-title {
+    position: absolute;
+    max-width: calc(100% - 24px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .close {
+    min-width: 36px;
+    z-index: 4;
+    @include breakpoint(md) {
+      display: none;
+    }
+  }
+}
+
+.root-layout--open {
+  .side-bar-logo {
+    @include breakpoint(md) {
+      width: $side-minimalized-nav-width;
+      overflow: hidden;
+    }
+  }
+}

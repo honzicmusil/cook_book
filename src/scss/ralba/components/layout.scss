@@ -1,0 +1,98 @@
+//@import 'global';
+
+.root-layout {
+  &__top-bar {
+    position: fixed;
+    top: 0;
+    @include side-nav-width(left);
+    z-index: 12;
+    right: 0;
+    @include bar-height(height);
+    background: var(--surface-a);
+    padding: 10px 24px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: var(--surface-d);
+    h2 {
+      margin: 0 !important;
+      color: #fff;
+    }
+  }
+  &__main {
+    position: relative;
+    @include side-nav-width(padding-left);
+    @include bar-height(padding-top);
+    background: var(--surface-b);
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    &__inner {
+      padding: 0 24px 16px;
+      overflow: auto;
+      flex: 1;
+      min-height: 100%;
+    }
+  }
+  &__side-bar {
+    position: fixed;
+    background: var(--surface-a);
+    @include color(color, primary-dark);
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100%;
+    max-width: $side-nav-width;
+    z-index: 13;
+    border-right-width: 1px;
+    border-right-style: solid;
+    border-right-color: var(--surface-d);
+    display: flex;
+    flex-direction: column;
+    @include bar-height(padding-top, -1px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    @include animation(transform);
+    transform: translate(-100%, 0);
+    @include breakpoint(md) {
+      transform: translate(0%, 0);
+      width: $side-nav-width;
+    }
+  }
+  &__bottom-bar {
+    z-index: 10;
+  }
+
+  &--open {
+    .root-layout {
+      &__top-bar {
+        @include breakpoint(md) {
+          left: $side-minimalized-nav-width;
+        }
+      }
+      &__side-bar {
+        transform: translate(0%, 0);
+        @include breakpoint(md) {
+          width: $side-minimalized-nav-width;
+        }
+      }
+      &__main {
+        @include breakpoint(md) {
+          padding-left: $side-minimalized-nav-width;
+        }
+      }
+    }
+    @include breakpoint(md) {
+      .side-bar-logo__text {
+        display: none !important;
+      }
+      .menu-link__text {
+        display: none !important;
+      }
+    }
+  }
+}
+
+.hamburger {
+  display: block;
+}

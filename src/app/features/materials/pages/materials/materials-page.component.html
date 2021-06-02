@@ -1,0 +1,11 @@
+<ral-title heading="Materials">
+  <button [routerLink]="['create-material']" label="Create" pButton></button>
+</ral-title>
+
+<cook-book-materials-grid [linkToDetail]="linkToDetail" [data]="materialsPageStore$.data$ | async"
+  (deleteBtnClick)="materialsPageStore$.delete($event)" (lazyLoad)="materialsPageStore$.onLazyLoad($event)">
+</cook-book-materials-grid>
+
+<pre>
+  {{materialsPageStore$.data$ | async | json}}
+</pre>

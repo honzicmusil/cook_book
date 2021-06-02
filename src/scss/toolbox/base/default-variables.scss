@@ -1,0 +1,37 @@
+$base-color: #1c1f2e !default;
+
+$primary: #ffad14 !default;
+$primary--active: #ff9900 !default;
+$primary--hover: #ffdc2b !default;
+
+$green: #00a463 !default;
+$blue: #0100ff !default;
+$red: #e50037 !default;
+
+$bg: #efeff0 !default;
+$bg-dark: #1c1f2e !default;
+
+$white: #fff !default;
+$black: #000 !default;
+
+$border-radius: 5px !default;
+
+$page-width: 1250px + 48px !default;
+
+$breakpoints: (
+  col: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+) !default;
+
+@import '../util/util';
+// 2. Breakpoints
+// --------------
+// https://medium.freecodecamp.com/the-100-correct-way-to-do-css-breakpoints-88d6a5ba1862
+// @media (max-width: 1200px) { ... } ==> @include breakpoint(tablet-landscape down) { ... }
+
+$grid-column-count: 12 !default;
+$grid-column: (
+  p: 8px,
+) !default;

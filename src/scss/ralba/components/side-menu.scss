@@ -1,0 +1,91 @@
+.li {
+  width: 100%;
+  display: block;
+}
+
+.side-menu-wrapper {
+  margin-top: -9px;
+}
+.section-title {
+  //padding: 20px 32px 4px;
+  &__text {
+    display: none;
+    //@include menu-link();
+    //@include color(color, primary);
+  }
+  padding: 8px 0;
+  &:before {
+    @include color(background, outline);
+    content: '';
+    display: block;
+    height: 1px;
+    width: 100%;
+  }
+}
+
+.menu-link {
+  padding: 20px 8px;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  position: relative;
+  @include menu-link();
+  @include color(color, primary-gray);
+  min-height: 65px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    right: 18px;
+    top: 7px;
+    bottom: 7px;
+    background: var(--primary-color);
+    opacity: 0;
+    border-radius: $border-radius;
+    @include animation(opacity);
+  }
+
+  i {
+    margin-left: 24px;
+    margin-right: 24px;
+    display: inline-block;
+  }
+  &--disabled {
+    opacity: 0.5;
+  }
+  &--active {
+    @include color(color, primary-dark);
+    &::ng-deep i {
+      color: var(--primary-color);
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      right: -2px;
+      width: 4px;
+      top: 7px;
+      bottom: 7px;
+      background: var(--primary-color);
+      border-radius: 2px;
+    }
+    &:before {
+      opacity: 0.1;
+    }
+  }
+  &__text {
+    padding: 2px 16px 2px 0px;
+  }
+
+  .hover &:not(#{&}--disabled):hover {
+    &:before {
+      opacity: 0.1;
+    }
+  }
+}
+
+.side-menu-item {
+  ul:empty {
+    margin-top: -17px;
+  }
+}

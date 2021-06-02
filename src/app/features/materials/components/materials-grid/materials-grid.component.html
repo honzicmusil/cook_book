@@ -1,0 +1,44 @@
+<p-table [value]="data" [lazy]="true" [paginator]="true" [rows]="gridState.rows || 8" [first]="gridState.first || 0"
+  [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoad($event)" styleClass="p-datatable-striped"
+  [rowsPerPageOptions]="rowsPerPageOptions" [loading]="loading">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>
+        {{ 'name' }}
+      </th>
+      <th>
+        {{ 'unit' }}
+      </th>
+      <th>
+        Actions
+      </th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-material>
+    <tr>
+      <td [routerLink]="linkToDetail(material)">{{ material.name }}</td>
+      <td>
+        {{ material.unit }}
+      </td>
+      <td>
+        <div class="p4-grid p-justify-end">
+          <div class="p-col-fixed">
+            <button pButton icon="fal fa-pencil" class="p-button-primary p-button-sm" label="Detail"
+              [routerLink]="linkToDetail(material)"></button>
+          </div>
+          <div class="p-col-fixed">
+            <button pButton icon="fal fa-trash" class="p-button-primary p-button-sm" label="Delete"
+              (click)="deleteBtnClick.emit(material.id)"></button>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="loadingbody">
+    <tr *ngFor="let a of helperForLodingTemplate()">
+      <td *ngFor="let d of helperForLodingTemplate(3)">
+        <p-skeleton></p-skeleton>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

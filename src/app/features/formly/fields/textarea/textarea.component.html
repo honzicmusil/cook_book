@@ -1,0 +1,12 @@
+<!-- https://github.com/primefaces/primeng/issues/9636 -->
+<textarea
+  [rows]="5"
+  [cols]="30"
+  pInputTextarea
+  [autoResize]="true"
+  [class.ng-dirty]="showError"
+  [formControl]="$any(formControl)"
+  [placeholder]="to.placeholderT ? to.placeholderT : to.placeholder"
+  (onChange)="to.change && to.change(field, $event)"
+  [attr.autocomplete]="to.attributes?.autocomplete"
+></textarea>

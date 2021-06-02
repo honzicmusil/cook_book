@@ -1,0 +1,41 @@
+@mixin animation($a, $b: 0.3s, $c: ease-out) {
+  transition: $a $b $c;
+}
+
+@mixin radius($radius: $border-radius) {
+  border-radius: $radius;
+}
+
+$bar-height: 60px !default;
+$bar-height-600: 60px !default;
+
+@mixin bar-height($atribute, $offset: 0, $multiply: 1, $important: null) {
+  #{$atribute}: $multiply * ($bar-height + $offset) $important;
+
+  @media screen and (max-width: 600px) {
+    #{$atribute}: $multiply * ($bar-height-600 + $offset) $important;
+  }
+}
+
+@mixin full-minus-bar-height($atribute) {
+  #{$atribute}: calc(100% - #{$bar-height});
+  @media screen and (max-width: 600px) {
+    #{$atribute}: calc(100% - #{$bar-height-600});
+  }
+}
+
+$side-closed-nav-width: 0 !default;
+$side-minimalized-nav-width: 83px !default;
+$side-nav-width: 280px !default;
+@mixin side-nav-width($atribute, $offset: 0, $multiply: 1) {
+  #{$atribute}: $multiply * ($side-closed-nav-width + $offset);
+  @media screen and (min-width: 768px) {
+    #{$atribute}: $multiply * ($side-nav-width + $offset);
+  }
+}
+
+// cookie bar;
+$padding-side-small: 20px !default;
+@mixin side-padding($atribute, $offset: 0, $multiply: 1) {
+  #{$atribute}: $multiply * ($padding-side-small + $offset);
+}

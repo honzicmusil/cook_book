@@ -1,0 +1,20 @@
+<div class="side-bar-logo">
+  <div class="p-grid p-grid--with-bottom p-align-center">
+    <div class="p-col-fixed">
+      <button
+        pButton
+        type="button"
+        icon="fal fa-times"
+        class="p-button-outlined close"
+        (click)="toggleClick.emit()"
+      ></button>
+      <img [src]="logo" [alt]="title" (click)="toggleClick.emit()" />
+    </div>
+    <div class="p-col side-bar-logo__text">
+      <span class="app-title">
+        {{ title }}
+      </span>
+      <span>&nbsp;</span>
+    </div>
+  </div>
+</div>

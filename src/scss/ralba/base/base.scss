@@ -1,0 +1,44 @@
+body,
+html {
+  min-width: 300px;
+  min-height: 100vh;
+  width: 100%;
+  display: block;
+  max-width: 100%;
+  //font-family: $font-family;
+  //background: $bg-gray;
+  //@include body();
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+main,
+header {
+  display: block;
+}
+
+mark {
+  color: $primary;
+}
+
+// p {
+//   line-height: 1.625em;
+// }
+
+.h1,
+h1 {
+  @include h1;
+}
+.h2,
+h2 {
+  @include h2;
+}
+.h3 {
+  @include h3;
+}
+.h4 {
+  @include h4;
+}
+.h5 {
+  @include h5;
+}

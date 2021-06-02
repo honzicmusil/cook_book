@@ -1,0 +1,19 @@
+<p-multiSelect
+  [options]="(to.options | formlySelectOptions: field | async) || []"
+  [formControl]="$any(formControl)"
+  [class.ng-dirty]="showError"
+  [placeholder]="to.placeholder || ''"
+  optionLabel="label"
+  display="chip"
+  class="multiselect-custom"
+  optionValue="value"
+  [selectionLimit]="to.max ? to.max: 1000000000"
+>
+  <!-- <ng-template let-value pTemplate="selectedItems">
+    <div *ngFor="let option of formControl.value" class="inline">
+      <p-tag removeIcon="fa-times" value="option.name"></p-tag>
+      <p-tag removeIcon="fa-times" value="option.name"></p-tag>
+      <p-chip label="Thriller" [removable]="true"></p-chip>
+    </div>
+  </ng-template> -->
+</p-multiSelect>

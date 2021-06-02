@@ -1,0 +1,50 @@
+.top-menu {
+  flex-wrap: nowrap;
+  h2 {
+    @include color(color, primary-dark);
+  }
+
+  .avatar {
+    position: relative;
+    @include breakpoint(lg) {
+      margin-right: 16px;
+    }
+    overflow: hidden;
+    &__img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .username {
+    display: none;
+    @include breakpoint(lg) {
+      display: inline-block;
+    }
+  }
+
+  .app-title {
+    display: none;
+    @include breakpoint(tiny) {
+      display: inline-block;
+      flex-shrink: 1;
+      position: relative;
+    }
+    p {
+      margin: 0;
+    }
+  }
+
+  h1 {
+    position: absolute;
+    max-width: calc(100% - 24px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin: 0;
+  }
+}

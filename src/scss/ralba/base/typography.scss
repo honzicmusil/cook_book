@@ -1,0 +1,56 @@
+// $ralba-typography: true !default;
+
+// @if ($ralba-typography) {
+@mixin h1 {
+  font-size: 20px;
+  font-weight: 600;
+}
+@mixin h2 {
+  font-size: 20px;
+  font-weight: 400;
+}
+@mixin h3 {
+  font-size: 16px;
+
+  font-weight: 600;
+}
+@mixin h4 {
+  font-size: 14px;
+
+  font-weight: 600;
+}
+
+@mixin h5 {
+}
+
+@mixin body {
+  font-size: 16px;
+  letter-spacing: 0.005em;
+}
+@mixin body2 {
+}
+
+@mixin label {
+  font-weight: bold;
+  /* Číslo a typ dokladu */
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 17px;
+  //letter-spacing: 0.08px;
+}
+
+@mixin menu-link {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: em(18px, 14px);
+}
+
+@mixin single-line {
+  height: 1.2em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
+}
+// }

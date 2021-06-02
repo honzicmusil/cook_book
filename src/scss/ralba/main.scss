@@ -1,0 +1,81 @@
+@use 'sass:meta';
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,500,600,700&display=swap&subset=latin-ext');
+@import './base/index';
+
+// icons
+$fontawesome: true !default;
+$fontawesome-regular: true !default;
+$fontawesome-solid: true !default;
+$fontawesome-duotone: false !default;
+$fontawesome-light: true !default;
+
+// grid
+$ralba-grid: true !default;
+
+// ralba admin components
+$ralba-components: true !default;
+
+@if ($fontawesome) {
+  @include meta.load-css('./font-awesome/fontawesome.scss');
+}
+@if ($fontawesome) {
+  @include meta.load-css('./font-awesome/fontawesome.scss');
+}
+@if ($fontawesome-regular) {
+  @include meta.load-css('./font-awesome/regular.scss');
+}
+@if ($fontawesome-solid) {
+  @include meta.load-css('./font-awesome/solid.scss');
+}
+@if ($fontawesome-duotone) {
+  @include meta.load-css('./font-awesome/duotone.scss');
+}
+@if ($fontawesome-light) {
+  @include meta.load-css('./font-awesome/light.scss');
+
+  .pi,
+  .p-button-icon {
+    @extend .fal;
+  }
+}
+
+@import '../toolbox/base/index';
+@import '../toolbox/grid/flex-grid';
+
+@if ($ralba-grid) {
+  @include genereteAllGrids();
+}
+
+@if ($ralba-components) {
+  @include meta.load-css('./components/index');
+
+  // Fix prime ng filter button
+  .p-link {
+    flex-grow: unset !important;
+    flex-basis: unset !important;
+  }
+
+  // Fix size of prime-ng btn-small
+  .p-button.p-button-sm {
+    padding: 0.35rem 0.6rem;
+    padding: 4px 8px;
+    font-size: 12px;
+    .p-button-icon {
+      font-size: 12px;
+    }
+  }
+
+  td:last-child,
+  th:last-child {
+    text-align: right !important;
+  }
+
+  .ui-messages-error {
+    color: #dd4d41;
+  }
+
+  .none {
+    display: none;
+  }
+}

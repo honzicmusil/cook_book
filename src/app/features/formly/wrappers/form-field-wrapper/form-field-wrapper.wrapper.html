@@ -1,0 +1,42 @@
+<div *ngIf="to.label && to.hideLabel !== true" class="ui-widget label-wrapper">
+  <label [for]="id">
+    <div class="p-grid p-nogutter p-justify-between">
+      <div class="p-fixed">
+        {{ to.label }}
+        <span *ngIf="to.required && to.hideRequiredMarker !== true">*</span>
+      </div>
+      <div class="p-fixed">
+        <!-- <ejs-tooltip
+          *ngIf="to.tooltip || to.tooltipT"
+          [content]="
+            to.tooltipT
+              ? t(to.descriptionT['key'], to.tooltipT['params'])
+              : to.tooltip
+          "
+          target=".tooltip-buble"
+        >
+          <i
+            class="fal fa-info-circle tooltip tooltip-buble"
+            *ngIf="to.tooltip"
+            tooltipPosition="top"
+          ></i>
+        </ejs-tooltip> -->
+      </div>
+    </div>
+  </label>
+  <p *ngIf="to.description" class="description">{{ to.description }}</p>
+</div>
+
+<ng-container #fieldComponent></ng-container>
+
+<!-- class="ui-message ui-widget ui-corner-all ui-message-error ui-messages-error" -->
+<div *ngIf="showError">
+  <formly-validation-message
+    class="p-error"
+    [field]="field"
+  ></formly-validation-message>
+</div>
+
+<!-- <div class="ui-messages-error" *ngIf="showError">
+  <formly-validation-message [field]="field"></formly-validation-message>
+</div> -->

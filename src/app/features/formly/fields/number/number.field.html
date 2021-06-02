@@ -1,0 +1,5 @@
+<p-inputNumber
+  mode="decimal"
+  [formControl]="$any(formControl)"
+  (onBlur)="to.change && to.change(field, $event)"
+></p-inputNumber>

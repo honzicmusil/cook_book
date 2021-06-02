@@ -1,0 +1,12 @@
+<!-- https://github.com/primefaces/primeng/issues/9636 -->
+<input
+  *ngIf="to.type !== 'number'; else numberTmp"
+  pInputText
+  [type]="to.type || 'text'"
+  [formControl]="$any(formControl)"
+  [formlyAttributes]="field"
+  (onBlur)="to.change && to.change(field, $event)"
+/>
+<ng-template #numberTmp>
+  <h5>use number instet of input in formly</h5>
+</ng-template>

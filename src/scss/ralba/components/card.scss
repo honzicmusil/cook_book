@@ -1,0 +1,25 @@
+.card {
+  position: relative;
+  @media print {
+    position: unset;
+  }
+}
+
+.widget-overview-box {
+  border-left: 10px solid var(--surface-d);
+  box-shadow: none;
+  background: var(--surface-e);
+  border-radius: 3px;
+  color: var(--text-color);
+  padding: 14px;
+  .overview-icon {
+    display: inline-block;
+    border-radius: 4px;
+    width: 2em;
+    height: 2rem;
+    line-height: 2rem;
+    text-align: center;
+    vertical-align: middle;
+    background: var(--surface-d);
+  }
+}

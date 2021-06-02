@@ -1,0 +1,27 @@
+<li *ngIf="visible !== false" class="li side-menu-item">
+  <div *ngIf="!routerLink" class="section-title">
+    <span class="h4 section-title__text">
+      {{ label }}
+    </span>
+  </div>
+  <a
+    *ngIf="routerLink"
+    [routerLink]="routerLink"
+    class="menu-link"
+    [class.menu-link--disabled]="disabled"
+    routerLinkActive="menu-link--active"
+    [title]="label"
+  >
+    <i class="fal fa-fw {{ icon }}"> </i>
+    <span class="menu-link__text">
+      {{ label }}
+      <p-badge
+        *ngIf="badge"
+        [value]="badge.toString()"
+        [styleClass]="badgeStyle"
+        [severity]="severity"
+      ></p-badge>
+    </span>
+  </a>
+  <ng-content></ng-content>
+</li>

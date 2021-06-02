@@ -1,0 +1,32 @@
+{
+  "9684230b-f38f-436b-9eda-9292a8e1d6a5": {
+    "name": "Citrón",
+    "unit": "ks",
+    "id": "9684230b-f38f-436b-9eda-9292a8e1d6a5"
+  },
+  "887b391b-d340-4165-bd49-202136392ea0": {
+    "name": "Coca Cola",
+    "unit": "ml",
+    "id": "887b391b-d340-4165-bd49-202136392ea0"
+  },
+  "fdda65b5-20a8-4793-a582-6973fd965b76": {
+    "name": "Limetka",
+    "unit": "ks",
+    "id": "fdda65b5-20a8-4793-a582-6973fd965b76"
+  },
+  "a9a183ac-36cf-462e-b5c4-c5fbeb433556": {
+    "name": "Plantation XO",
+    "unit": "ml",
+    "id": "a9a183ac-36cf-462e-b5c4-c5fbeb433556"
+  },
+  "d1c665d2-d945-415f-9e9a-d2d42132a897": {
+    "name": "Led",
+    "unit": "ks",
+    "id": "d1c665d2-d945-415f-9e9a-d2d42132a897"
+  },
+  "2e2f3831-c4f7-4f0a-9b69-9bfe9190e41a": {
+    "name": "asdf",
+    "unit": "ml",
+    "id": "2e2f3831-c4f7-4f0a-9b69-9bfe9190e41a"
+  }
+}

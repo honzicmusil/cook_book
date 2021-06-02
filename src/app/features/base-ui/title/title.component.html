@@ -1,0 +1,20 @@
+<header>
+  <div class="p-grid p-grid--with-bottom p-justify-between p-align-center">
+    <div class="p-col-fixed" *ngIf="heading">
+      <div class="p-grid p-grid--with-bottom">
+        <div class="p-col-fixed">
+          <h2 class="h1 h1--title">{{ heading }}</h2>
+        </div>
+        <div class="p-col-fixed">
+          <ng-content select="[left-side]"></ng-content>
+        </div>
+      </div>
+    </div>
+    <div class="p-col-fixed">
+      <ng-content select="[header]"></ng-content>
+    </div>
+    <div class="p-col-fixed">
+      <ng-content></ng-content>
+    </div>
+  </div>
+</header>

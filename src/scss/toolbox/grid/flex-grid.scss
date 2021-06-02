@@ -1,0 +1,308 @@
+$grid-column-count: 12 !default;
+$grid-column: (
+  p: 8px,
+  p60: (
+    col: 20px,
+    md: 50px,
+  ),
+) !default;
+
+$grid-cols-settings: (
+  grove: false,
+  max: false,
+  offset: false,
+  order: false,
+) !default;
+
+$grid-align-breakpoints: col !default;
+
+//$grid-align-breakpoints: col, lg, xl;
+
+@mixin genereteAllGrids() {
+  // Gird aligns, for predefined breakpoints
+  @each $breakpoint in $grid-align-breakpoints {
+    @include generateGridAligns($breakpoint);
+  }
+
+  // Base Sizes
+  @each $gutterPrefix, $gutterValue in $grid-column {
+    @include generateGridWrapper($gutterPrefix, $gutterValue);
+  }
+
+  @each $name, $gutterValue in $breakpoints {
+    @media screen and (min-width: $gutterValue) {
+      @include genereteCols($name);
+      @include genereteResponsiveAligns($name);
+    }
+  }
+
+  .p-full-height {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .p-scroll-height {
+    overflow: auto;
+    flex-shrink: 1;
+    flex-basis: 0;
+    max-height: 100%;
+  }
+}
+// Gird aligns, for predefined breakpoints
+@mixin generateGridAligns($breakpoint: 'col') {
+  @include breakpoint($breakpoint) {
+    @if ($breakpoint == 'col') {
+      $breakpoint: '';
+    }
+
+    .p#{$breakpoint}-dir-row {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+      flex-direction: row;
+    }
+
+    .p#{$breakpoint}-dir-rev {
+      -webkit-box-orient: horizontal;
+      -webkit-box-direction: reverse;
+      -ms-flex-direction: row-reverse;
+      flex-direction: row-reverse;
+    }
+
+    .p#{$breakpoint}-dir-col {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      flex-wrap: nowrap;
+    }
+
+    .p#{$breakpoint}-dir-col-rev {
+      -webkit-box-orient: vertical;
+      -webkit-box-direction: reverse;
+      -ms-flex-direction: column-reverse;
+      flex-direction: column-reverse;
+      flex-wrap: nowrap;
+    }
+
+    .p#{$breakpoint}-justify-start {
+      -webkit-box-pack: start;
+      -ms-flex-pack: start;
+      justify-content: flex-start;
+    }
+
+    .p#{$breakpoint}-justify-end {
+      -webkit-box-pack: end;
+      -ms-flex-pack: end;
+      justify-content: flex-end;
+    }
+
+    .p#{$breakpoint}-justify-center {
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      justify-content: center;
+    }
+
+    .p#{$breakpoint}-justify-between {
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+      justify-content: space-between;
+    }
+
+    .p#{$breakpoint}-justify-around {
+      -ms-flex-pack: distribute;
+      justify-content: space-around;
+    }
+
+    .p#{$breakpoint}-justify-even {
+      -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+      justify-content: space-evenly;
+    }
+
+    .p#{$breakpoint}-align-start {
+      -webkit-box-align: start;
+      -ms-flex-align: start;
+      align-items: flex-start;
+    }
+
+    .p#{$breakpoint}-align-end {
+      -webkit-box-align: end;
+      -ms-flex-align: end;
+      align-items: flex-end;
+    }
+
+    .p#{$breakpoint}-align-center {
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      align-items: center;
+    }
+
+    // .p#{$breakpoint}-align-baseline {
+    //   -webkit-box-align: baseline;
+    //   -ms-flex-align: baseline;
+    //   align-items: baseline;
+    // }
+
+    .p#{$breakpoint}-align-stretch {
+      -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+      align-items: stretch;
+    }
+  }
+}
+
+// gutters can be map
+@mixin generateGridWrapper($gridPrefix, $gutters) {
+  @if (type-of($gutters) != 'map') {
+    $gutters: (
+      col: $gutters,
+    );
+  }
+
+  @each $name, $gutter in $gutters {
+    @include breakpoint($name) {
+      .#{$gridPrefix}-grid {
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: -1 * $gutter;
+        margin-left: -1 * $gutter;
+        margin-top: -1 * $gutter;
+        min-width: calc(100% + #{2 * $gutter});
+        &--with-bottom {
+          margin-bottom: -1 * $gutter;
+        }
+        > [class*='p-col'] {
+          padding: $gutter;
+        }
+      }
+      .#{$gridPrefix}-nogutter {
+        margin: 0;
+        > [class*='p-col'] {
+          padding: 0;
+        }
+      }
+    }
+  }
+}
+
+@mixin genereteResponsiveAligns($viewportPrefix, $gutterPrefix: 'p') {
+  [class*='p-#{$viewportPrefix}-fixed'] {
+    width: auto;
+    max-width: 100%;
+  }
+
+  [class*='p-#{$viewportPrefix}-nogutter'] {
+    padding: 0;
+  }
+
+  [class*='p-#{$viewportPrefix}-order-first'] {
+    -ms-flex-order: -1;
+    order: -1;
+  }
+
+  [class*='p-#{$viewportPrefix}-order-last'] {
+    -ms-flex-order: 13;
+    order: 13;
+  }
+
+  [class*='p-#{$viewportPrefix}-align-start'] {
+    -ms-flex-item-align: start;
+    align-self: flex-start;
+  }
+
+  [class*='p-#{$viewportPrefix}-align-end'] {
+    -ms-flex-item-align: end;
+    align-self: flex-end;
+  }
+
+  [class*='p-#{$viewportPrefix}-align-center'] {
+    -ms-flex-item-align: center;
+    -ms-grid-row-align: center;
+    align-self: center;
+  }
+
+  [class*='p-#{$viewportPrefix}-align-baseline'] {
+    -ms-flex-item-align: baseline;
+    align-self: baseline;
+  }
+
+  [class*='p-#{$viewportPrefix}-align-stretch'] {
+    -ms-flex-item-align: stretch;
+    -ms-grid-row-align: stretch;
+    align-self: stretch;
+  }
+
+  //TODO:
+  .#{$gutterPrefix}-dir-#{$viewportPrefix}
+    > .#{$gutterPrefix}-#{$viewportPrefix},
+  .#{$gutterPrefix}-dir-#{$viewportPrefix}-rev
+    > .#{$gutterPrefix}-#{$viewportPrefix} {
+    -ms-flex-preferred-size: auto;
+    flex-basis: auto;
+  }
+}
+
+@mixin genereteCols($viewportPrefix) {
+  [class*='p-#{$viewportPrefix}'] {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
+    -ms-flex-preferred-size: 0;
+    flex-basis: 0;
+  }
+
+  [class*='p-#{$viewportPrefix}-fixed'],
+  [class*='p-#{$viewportPrefix}-'] {
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+  }
+
+  @for $i from 0 through $grid-column-count {
+    @if ($i != 0) {
+      [class*='p-#{$viewportPrefix}-#{$i}'] {
+        width: (100 / ($grid-column-count / $i)) * 1%;
+      }
+      @if (
+        type-of($grid-cols-settings) !=
+          'map' or
+          map-get($grid-cols-settings, 'max')
+      ) {
+        [class*='p-#{$viewportPrefix}-max-#{$i}']
+          .#{$gutterPrefix}-#{$viewportPrefix}-max-#{$i} {
+          max-width: (100 / ($grid-column-count / $i)) * 1%;
+        }
+      }
+
+      @if (
+        type-of($grid-cols-settings) !=
+          'map' or
+          map-get($grid-cols-settings, 'offset')
+      ) {
+        [class*='p-#{$viewportPrefix}-offset-#{$i}'] {
+          margin-left: (100 / ($grid-column-count / $i)) * 1%;
+        }
+      }
+    }
+    @if (
+      type-of($grid-cols-settings) !=
+        'map' or
+        map-get($grid-cols-settings, 'grove')
+    ) {
+      [class*='p-#{$viewportPrefix}-grove-#{$i}'] {
+        flex-grow: #{$i};
+      }
+    }
+    @if (
+      type-of($grid-cols-settings) !=
+        'map' or
+        map-get($grid-cols-settings, 'order')
+    ) {
+      [class*='p-#{$viewportPrefix}-order-#{$i}'] {
+        order: $i;
+      }
+    }
+  }
+}

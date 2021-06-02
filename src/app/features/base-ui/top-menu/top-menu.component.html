@@ -1,0 +1,57 @@
+<div
+  class="p-grid p-grid--with-bottom p-justify-between p-align-center top-menu"
+>
+  <div class="p-col">
+    <div class="p-grid p-grid--with-bottom p-align-center">
+      <div class="p-col-fixed hamburger">
+        <button
+          pButton
+          type="button"
+          icon="fal fa-bars"
+          class="p-button-text p-mr-2 p-mb-2"
+          (click)="toggleClick.emit()"
+        ></button>
+      </div>
+      <div class="p-col app-title">
+        <h1>{{ title }}</h1>
+        <p>&nbsp;</p>
+      </div>
+    </div>
+  </div>
+  <div class="p-col-fixed">
+    <div class="p-grid p-grid--with-bottom p-justify-end p-align-center">
+      <ng-content> </ng-content>
+      <div class="p-col-fixed">
+        <div (click)="profileClick.emit()">
+          <div class="p-grid p-grid--with-bottom">
+            <div class="p-col-fixed">
+              <button
+                pButton
+                icon="fal fa-user"
+                [label]="' ' + displayName"
+                class="p-button-text p-mr-2 p-mb-2"
+              ></button>
+            </div>
+            <!-- <div
+              class="p-col-fixed"
+              style="align-self: center"
+              *ngIf="displayName"
+            >
+              <span class="username">
+                {{ displayName }}
+              </span>
+            </div> -->
+          </div>
+        </div>
+      </div>
+      <div class="p-col-fixed">
+        <button
+          pButton
+          icon="fal fa-power-off"
+          class="p-button-text p-mr-2 p-mb-2"
+          (click)="logoutClick.emit()"
+        ></button>
+      </div>
+    </div>
+  </div>
+</div>

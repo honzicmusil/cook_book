@@ -1,0 +1,73 @@
+.filter-box:not(:empty) {
+  padding-top: 24px; // can be deleted
+}
+
+form {
+  max-width: 100%;
+  overflow: visible;
+  // overflo of dropdown
+
+  > button {
+    margin-top: 24px !important; // testing
+  }
+}
+
+formly-group,
+formly-form {
+  display: flex;
+  margin: -8px;
+  flex-wrap: wrap;
+  min-width: 100%;
+}
+formly-field {
+  padding: 8px;
+  flex: 1;
+  display: block;
+}
+
+formly-field:empty {
+  display: none;
+}
+
+.label-wrapper {
+  position: relative;
+  padding-bottom: 4px;
+}
+.field-label {
+  @include label();
+  @include color(color, primary-gray);
+}
+
+.description {
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 14px;
+  margin: 4px 0 0;
+  @include color(color, primary-gray);
+}
+
+.e-pager .e-pagerdropdown {
+  height: 34px; // fix paginator
+}
+
+.fake-label {
+  &:before {
+    content: '';
+    display: block;
+    height: 21px;
+  }
+}
+
+.p-error {
+  padding-top: 3px;
+}
+
+.ui-messages-error {
+  formly-validation-message {
+    font-weight: 600;
+  }
+}
+
+.p-calendar {
+  width: 100%;
+}
