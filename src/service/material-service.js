@@ -1,3 +1,4 @@
+const { uuid } = require("uuidv4");
 const MaterialDao = require("../dao/material-dao")
 const Material = require("../model/material")
 
@@ -21,7 +22,7 @@ const list = async (req, res) => {
 
 const get = async (req, res) => {
     let {id} = req.body
-    if (id && typeof id === "string" && id.length < 25) {
+    if (id && typeof id === "string" && id.length == 36) {
         try {
             let result = await materialDao.getMaterial(id)
             res.status(200).json(result)
@@ -44,12 +45,13 @@ const create = async (req, res) => {
     if (name && typeof name === "string" && name.length < 30 &&
         code && typeof code === "string" && code.length < 10) {
 
-        const material = new Material(name, code)
+        const material = {name, code, id: uuid()}
 
         try {
             let result = await materialDao.addMaterial(material)
             res.status(200).json(result)
         } catch (e) {
+            console.log(e);
             if (e.code === "DUPLICATE_CODE") {
                 res.status(400).json({error: e})
             } else if (e.code === "FAILED_TO_STORE_MATERIAL") {
@@ -67,7 +69,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     let {id, name, code} = req.body
-    if (id && typeof id === "string" && id.length < 25 &&
+    if (id && typeof id === "string" && id.length < 36 &&
         name && typeof name === "string" && name.length < 30 &&
         code && typeof code === "string" && code.length < 10) {
         const material = {id, name, code}
@@ -92,7 +94,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     let {id} = req.body
-    if (id && typeof id === "string" && id.length < 25) {
+    if (id && typeof id === "string" && id.length < 36) {
         try {
             await materialDao.deleteMaterial(id)
             res.status(200).json({})

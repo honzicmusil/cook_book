@@ -21,7 +21,7 @@ const list = async (req, res) => {
 
 const get = async (req, res) => {
     let {id} = req.body
-    if (id && typeof id === "string" && id.length < 25) {
+    if (id && typeof id === "string" && id.length < 36) {
         try {
             let result = await recipeDao.getRecipe(id)
             res.status(200).json(result)
@@ -69,7 +69,7 @@ const create = async (req, res) => {
 
 const update = async (req, res) => {
     let {id, name, description, preparationLength, materials} = req.body
-    if (id && typeof id === "string" && id.length < 25 &&
+    if (id && typeof id === "string" && id.length < 36 &&
         name && typeof name === "string" && name.length < 30 &&
         description && typeof description === "string" && description.length < 256 &&
         preparationLength && typeof preparationLength === "number" && preparationLength > 0 &&
@@ -97,7 +97,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
     let {id} = req.body
-    if (id && typeof id === "string" && id.length < 25) {
+    if (id && typeof id === "string" && id.length < 36) {
         try {
             await recipeDao.deleteRecipe(id)
             res.status(200).json({})
