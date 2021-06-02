@@ -6,8 +6,8 @@ export const RECIPES_GRID_TEST_DATA: RecipesGridColumnsType[] = [
     name: "Luxusní kola s rumem",
     description: "Popis receptu",
     defaultPortions: 2,
-    preparationLenght: 20,
-    ingredients: [
+    preparationLength: 20,
+    materials: [
       {
         material: {
           id: "1",
@@ -39,8 +39,8 @@ export const RECIPES_GRID_TEST_DATA: RecipesGridColumnsType[] = [
     name: "GT",
     description: "Popis receptu",
     defaultPortions: 2,
-    preparationLenght: 20,
-    ingredients: [{
+    preparationLength: 20,
+    materials: [{
       material: {
         id: "1",
         name: "Tonic",

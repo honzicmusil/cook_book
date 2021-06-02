@@ -5,8 +5,8 @@ export interface Recipe {
 	name: string;
 	description: string;
 	defaultPortions: number;
-  preparationLenght: number;
-	ingredients: Ingredient[];
+  preparationLength: number;
+	materials: Ingredient[];
 }
 
 export interface Ingredient {

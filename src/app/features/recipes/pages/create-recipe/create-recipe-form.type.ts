@@ -4,6 +4,6 @@ export type CreateRecipeFormType = {
   name: string;
   description: string;
   defaultPortions: number,
-  preparationLenght: number,
-  ingredients: Ingredient[]
+  preparationLength: number,
+  materials: Ingredient[]
 };
