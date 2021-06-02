@@ -23,10 +23,5 @@
     "name": "Led",
     "unit": "ks",
     "id": "d1c665d2-d945-415f-9e9a-d2d42132a897"
-  },
-  "2e2f3831-c4f7-4f0a-9b69-9bfe9190e41a": {
-    "name": "asdf",
-    "unit": "ml",
-    "id": "2e2f3831-c4f7-4f0a-9b69-9bfe9190e41a"
   }
 }
