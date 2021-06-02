@@ -1,15 +1,6 @@
-<p-table
-  [value]="data"
-  [lazy]="true"
-  [paginator]="true"
-  [rows]="gridState.rows || 8"
-  [first]="gridState.first || 0"
-  [totalRecords]="totalRecords"
-  (onLazyLoad)="onLazyLoad($event)"
-  styleClass="p-datatable-striped"
-  [rowsPerPageOptions]="rowsPerPageOptions"
-  [loading]="loading"
->
+<p-table [value]="data" [lazy]="true" [paginator]="true" [rows]="gridState.rows || 8" [first]="gridState.first || 0"
+  [totalRecords]="totalRecords" (onLazyLoad)="onLazyLoad($event)" styleClass="p-datatable-striped"
+  [rowsPerPageOptions]="rowsPerPageOptions" [loading]="loading">
   <ng-template pTemplate="header">
     <tr>
       <th pSortableColumn="name">
@@ -26,18 +17,17 @@
       <td>
         <div class="p4-grid p-justify-end">
           <div class="p-col-fixed">
-            <button
-              pButton
-              icon="fal fa-pencil"
-              class="p-button-primary p-button-sm"
-              label="Detail"
-              [routerLink]="linkToDetail(recipe)"
-            ></button>
+            <button pButton icon="fal fa-pencil" class="p-button-primary p-button-sm" label="Detail"
+              [routerLink]="linkToDetail(recipe)"></button>
+          </div>
+          <div class="p-col-fixed">
+            <button pButton icon="fal fa-trash" class="p-button-danger p-button-sm" label="Delete"
+              (click)="deleteBtnClick.emit(recipe)"></button>
           </div>
         </div>
       </td>
-    </tr></ng-template
-  >
+    </tr>
+  </ng-template>
   <ng-template pTemplate="loadingbody">
     <tr *ngFor="let a of helperForLodingTemplate()">
       <td *ngFor="let d of helperForLodingTemplate(2)">

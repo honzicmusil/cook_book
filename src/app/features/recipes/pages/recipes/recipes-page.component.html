@@ -4,7 +4,7 @@
 </ral-title>
 
 <cook-book-recipes-grid [linkToDetail]="linkToDetail" [data]="recipesPageStore$.data$ | async"
-  (lazyLoad)="recipesPageStore$.onLazyLoad($event)"></cook-book-recipes-grid>
+  (lazyLoad)="recipesPageStore$.onLazyLoad($event)" (deleteBtnClick)="recipesPageStore$.delete($event)"></cook-book-recipes-grid>
 
 
 

@@ -67,19 +67,8 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 	readonly fetchData = this.effect((input: Observable<never>) => {
 		return input.pipe(
 			tap(() => this.requesting()),
-			tap(() =>
-				this.store$.dispatch(
-					ToastActions.showToast({
-						message: {
-							severity: "error",
-							summary: "Server Error",
-							detail: "Asd",
-						},
-					})
-				)
-			),
 			exhaustMap(() =>
-				this.service.get().pipe(
+				this.service.getAll().pipe(
 					map((data) => {
 						console.log(data);
 						if (data.error) throw data;
@@ -96,6 +85,41 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 			)
 		);
 	});
+
+  readonly delete = this.effect((input: Observable<string>) => {
+		return input.pipe(
+			tap(() => this.requesting()),
+			exhaustMap((p) =>
+				this.service.delete(p).pipe(
+					map((data) => {
+						if (data.error) throw data;
+						else if (!data.error) {
+							this.store$.dispatch(
+								ToastActions.showToast({
+									message: {
+										severity: "info",
+										summary: "Deleted",
+										detail: `${data.name} was deleted`,
+									},
+								})
+								//TODO: redirect to grid?
+							);
+						}
+					}),
+					tap(() => this.requestFinished()),
+          tap(() => this.fetchData()),
+					catchError((p) =>
+						this.httpError(
+							(p.hasOwnProperty("error") && p.error) ||
+								"HTTP error Connection error"
+						)
+					)
+				)
+			)
+		);
+	});
+
+
 
 	httpError(p: string) {
 		// Obecnej toad na HTTP error Connection error

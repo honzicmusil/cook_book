@@ -1,1 +1,68 @@
-{}
+{
+  "1": {
+    "id": "1",
+    "name": "Luxusní kola s rumem",
+    "description": "Popis receptu",
+    "defaultPortions": 2,
+    "preparationLenght": 20,
+    "ingredients": [
+      {
+        "material": {
+          "id": "1",
+          "name": "Limetka",
+          "unit": "ks"
+        },
+        "amount": 0
+      },
+      {
+        "material": {
+          "id": "2",
+          "name": "Plantation XO",
+          "unit": "ml"
+        },
+        "amount": 200
+      },
+      {
+        "material": {
+          "id": "3",
+          "name": "Coca Cola",
+          "unit": "ml"
+        },
+        "amount": 300
+      }
+    ]
+  },
+  "2": {
+    "id": "2",
+    "name": "Luxusní kola s rumem 2",
+    "description": "Popis receptu",
+    "defaultPortions": 2,
+    "preparationLenght": 20,
+    "ingredients": [
+      {
+        "material": {
+          "id": "1",
+          "name": "Limetka",
+          "unit": "ks"
+        },
+        "amount": 0
+      },
+      {
+        "material": {
+          "id": "2",
+          "name": "Plantation XO",
+          "unit": "ml"
+        },
+        "amount": 200
+      },
+      {
+        "material": {
+          "id": "3",
+          "name": "Coca Cola",
+          "unit": "ml"
+        },
+        "amount": 300
+      }
+    ]
+  }
+}
