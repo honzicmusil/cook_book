@@ -86,7 +86,7 @@ export class MaterialDetailPageStore extends ComponentStore<MaterialDetailPageSt
 		);
 	});
 
-	readonly postData = this.effect((input: Observable<Omit<Material, "id">>) => {
+	readonly editData = this.effect((input: Observable<Omit<Material, "id">>) => {
 		return input.pipe(
 			tap(() => this.requesting()),
 			exhaustMap((p) =>
@@ -97,13 +97,13 @@ export class MaterialDetailPageStore extends ComponentStore<MaterialDetailPageSt
 							this.store$.dispatch(
 								ToastActions.showToast({
 									message: {
-										severity: "sucess",
+										severity: "success",
 										summary: "Saved",
 										detail: `${data.name} was created`,
 									},
 								})
-								//TODO: redirect to grid?
-							);
+                );
+              this.updateData(data)
 						}
 					}),
 					tap(() => this.requestFinished()),

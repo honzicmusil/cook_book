@@ -20,8 +20,13 @@
     "id": "a9a183ac-36cf-462e-b5c4-c5fbeb433556"
   },
   "d1c665d2-d945-415f-9e9a-d2d42132a897": {
+    "id": "d1c665d2-d945-415f-9e9a-d2d42132a897",
     "name": "Led",
-    "unit": "ks",
-    "id": "d1c665d2-d945-415f-9e9a-d2d42132a897"
+    "unit": "ksssss"
+  },
+  "7d37f067-ed32-4fab-b333-1f72575dfd36": {
+    "id": "7d37f067-ed32-4fab-b333-1f72575dfd36",
+    "name": "Tequila",
+    "unit": "ml"
   }
 }

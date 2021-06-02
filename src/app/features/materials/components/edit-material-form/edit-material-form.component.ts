@@ -44,6 +44,7 @@ export class EditMaterialFormComponent {
 
 	onFormSubmit(model: EditMaterialFormType) {
 		if (this.form.valid) {
+      console.log("Asdf")
 			this.formSubmit.emit(
 				JSON.parse(JSON.stringify(model)) as EditMaterialFormType
 			);

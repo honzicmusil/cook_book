@@ -79,11 +79,12 @@ const update = async (req, res) => {
 	if (
 		id &&
 		typeof id === "string" &&
-		id.length < 36 &&
+		id.length == 36 &&
 		name &&
 		typeof name === "string" &&
 		name.length < 30 &&
 		unit &&
+        
 		typeof unit === "string" &&
 		unit.length < 10
 	) {

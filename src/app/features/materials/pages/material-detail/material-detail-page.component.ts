@@ -19,7 +19,8 @@ export class MaterialDetailPageComponent implements OnInit {
 	this.materialDetailPageStore.toggleEditMode();
 	}
 
-	onFormSubmit(model: EditMaterialFormType) {
-		this.materialDetailPageStore.postData(model);
+	formSubmit(model: EditMaterialFormType) {
+    console.log(model);
+		this.materialDetailPageStore.editData(model);
 	}
 }

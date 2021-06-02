@@ -18,7 +18,7 @@
 </p-card>
 
 <p-card *ngIf="materialDetailPageStore.editNonMode$ | async">
-  <cook-book-edit-material-form [data]="materialDetailPageStore.data$ | async" (onFormSubmit)="onFormSubmit($event)">
+  <cook-book-edit-material-form [data]="materialDetailPageStore.data$ | async" (formSubmit)="formSubmit($event)">
   </cook-book-edit-material-form>
   <!-- <form [formGroup]="form" (ngSubmit)="onFormSubmit(model)">
     <div class="p-grid">
