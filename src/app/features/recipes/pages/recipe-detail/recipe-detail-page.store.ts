@@ -13,11 +13,13 @@ import {
 
 import { selectRouteParam } from "src/app/root.state";
 import { ToastActions } from "src/app/features/toasts";
-import { Recipe } from "src/app/features/models";
+import { Material, Recipe } from "src/app/features/models";
 import { RecipesService } from "src/app/features/api-services/recipes.service";
+import { MaterialService } from "src/app/features/api-services/meterials.service";
 
 export interface RecipeDetailPageState {
 	data: Recipe | undefined | null;
+	materials: Material[] | undefined | null;
 	loading: boolean;
 	editMode: boolean;
 }
@@ -26,11 +28,13 @@ export interface RecipeDetailPageState {
 export class RecipeDetailPageStore extends ComponentStore<RecipeDetailPageState> {
 	constructor(
 		protected store$: Store<never>,
-		private service: RecipesService
+		private service: RecipesService,
+		private materialService: MaterialService
 	) {
 		super({
 			data: null,
 			loading: false,
+			materials: [],
 			editMode: false,
 		});
 	}
@@ -38,8 +42,23 @@ export class RecipeDetailPageStore extends ComponentStore<RecipeDetailPageState>
 	readonly loading$ = this.select((state) => state.loading);
 
 	readonly data$ = this.select((state) => state.data);
+	readonly materials$ = this.select((state) => state.materials);
+	readonly combineddata$ = this.select((state) => {
+		const { data, materials } = state;
+		if (data && materials)
+			return {
+				...data,
+				materials: data.materials.map((p) => ({
+					...p,
+					material: materials.find((k) => k.id == (p["material"] as unknown)),
+				})),
+			};
+		else {
+			return null;
+		}
+	});
 	readonly editMode$ = this.select((state) => state.editMode);
-	readonly editNonMode$ = this.select((state) => !(state.editMode));
+	readonly editNonMode$ = this.select((state) => !state.editMode);
 
 	public readonly requesting = this.updater((state) => ({
 		...state,
@@ -56,12 +75,47 @@ export class RecipeDetailPageStore extends ComponentStore<RecipeDetailPageState>
 		data: input,
 	}));
 
+	private readonly updateMaterialData = this.updater(
+		(state, input: Material[]) => ({
+			...state,
+			materials: input,
+		})
+	);
+
 	readonly toggleEditMode = this.updater((state) => ({
 		...state,
 		editMode: !state.editMode,
 	}));
 
-	readonly fetchData = this.effect((input: Observable<unknown>) => {
+	readonly init = this.effect((input: Observable<unknown>) => {
+		return input.pipe(
+			tap(() => this.fetchMaterialData()),
+			tap(() => this.fetchData())
+		);
+	});
+
+	readonly fetchMaterialData = this.effect((input: Observable<never>) => {
+		return input.pipe(
+			tap(() => this.requesting()),
+			exhaustMap(() =>
+				this.materialService.getAll().pipe(
+					map((data) => {
+						if (data.error) throw data;
+						else if (data.itemList) this.updateMaterialData(data.itemList);
+					}),
+					tap(() => this.requestFinished()),
+					catchError((p) =>
+						this.httpError(
+							(p.hasOwnProperty("error") && p.error) ||
+								"HTTP error Connection error"
+						)
+					)
+				)
+			)
+		);
+	});
+
+	readonly fetchData = this.effect((input: Observable<never>) => {
 		return input.pipe(
 			withLatestFrom(this.store$.pipe(select(selectRouteParam("id")))),
 			tap(() => this.requesting()),
@@ -101,8 +155,8 @@ export class RecipeDetailPageStore extends ComponentStore<RecipeDetailPageState>
 										detail: `${data.name} was created`,
 									},
 								})
-                );
-              this.updateData(data)
+							);
+							this.updateData(data);
 						}
 					}),
 					tap(() => this.requestFinished()),

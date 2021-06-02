@@ -21,13 +21,28 @@ export class EditRecipeFormComponent {
 	};
 	options: FormlyFormOptions = {};
 	fields: FormlyFieldConfig[] = [
-		{
+    {
 			key: "name",
 			type: "input",
 			className: "p-col-12",
 			templateOptions: {
+				// translate: true,,
+				label: "Název receptu",
+				placeholder: "Cola s rumem",
+				required: true,
+        maxLength: 30
+			},
+		},
+		{
+			key: "description",
+			type: "textarea",
+			className: "p-col-12",
+			templateOptions: {
 				// translate: true,
-				placeholder: "Název receptu",
+				label: "Popis přípravy a receptu",
+				placeholder: "Slejeme dohromdy",
+				required: true,
+        maxLength: 256
 			},
 		},
 		{
@@ -36,7 +51,20 @@ export class EditRecipeFormComponent {
 			className: "p-col-12",
 			templateOptions: {
 				// translate: true,
-				placeholder: "Počet porcí",
+				label: "Počet porcí",
+				placeholder: "1",
+				required: true,
+			},
+		},
+		{
+			key: "preparationLength",
+			type: "number",
+			className: "p-col-12",
+			templateOptions: {
+				// translate: true,
+				label: "Doba na přípravu (min)",
+				placeholder: "v minutach",
+				required: true,
 			},
 		},
 		{

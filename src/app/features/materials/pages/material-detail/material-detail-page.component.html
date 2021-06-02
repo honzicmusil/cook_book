@@ -11,10 +11,12 @@
     </div>
   </div>
 </ral-title>
-<p-card *ngIf="materialDetailPageStore.editNonMode$ | async">
-  {{
-  materialDetailPageStore.data$ | async | json
-  }}
+<p-card *ngIf="materialDetailPageStore.editNonMode$ | async ">
+  <div *ngIf="materialDetailPageStore.data$ | async as data">
+
+    <h3 class="h3">{{data.name}}</h3>
+    <span>{{data.unit}}</span>
+  </div>
 </p-card>
 
 <p-card *ngIf="materialDetailPageStore.editMode$ | async">

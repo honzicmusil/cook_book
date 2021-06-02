@@ -5,7 +5,7 @@ const { uuid } = require("uuidv4");
 let recipeDao = new RecipeDao();
 
 const list = async (req, res) => {
-	let { name, materials } = req.body;
+	let { name, materials } = req.query;
 	if (
 		(!name || (name && typeof name === "string" && name.length < 30)) &&
 		(!materials || (Array.isArray(materials) && materials.length > 0))

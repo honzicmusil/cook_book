@@ -3,22 +3,22 @@
     "id": "1",
     "name": "Luxusní kola s rumem",
     "description": "Popis receptu",
-    "defaultPortions": 2,
-    "preparationLenght": 20,
+    "preparationLength": 20,
     "materials": [
       {
-        "material": "2",
-        "amount": 0
+        "material": "fdda65b5-20a8-4793-a582-6973fd965b76",
+        "amount": 1
       },
       {
-        "material": "2",
+        "material": "a9a183ac-36cf-462e-b5c4-c5fbeb433556",
         "amount": 200
       },
       {
-        "material": "2",
+        "material": "887b391b-d340-4165-bd49-202136392ea0",
         "amount": 300
       }
-    ]
+    ],
+    "defaultPortions": 2
   },
   "45f7f101-08c3-411a-8153-3752f37c8c61": {
     "id": "45f7f101-08c3-411a-8153-3752f37c8c61",

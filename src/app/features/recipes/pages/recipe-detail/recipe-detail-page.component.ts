@@ -12,37 +12,8 @@ import { RecipeDetailPageStore } from "./recipe-detail-page.store";
 	providers: [RecipeDetailPageStore],
 })
 export class RecipeDetailPageComponent {
-	data = {
-		id: "1",
-		name: "Luxusní kola s rumem",
-		defaultPortions: 2,
-		ingredients: [
-			{
-				material: {
-					id: "1",
-					name: "Limetka",
-					unit: "ks",
-				},
-				amount: 0,
-			},
-			{
-				material: {
-					id: "2",
-					name: "Plantation XO",
-					unit: "ml",
-				},
-				amount: 200,
-			},
-			{
-				material: {
-					id: "3",
-					name: "Coca Cola",
-					unit: "ml",
-				},
-				amount: 300,
-			},
-		],
-	};
+	data$ = this.recipeDetailPageStore.data$;
+	combineddata$ = this.recipeDetailPageStore.combineddata$;
 
 	form = new FormGroup({});
 	model = {
@@ -64,14 +35,13 @@ export class RecipeDetailPageComponent {
 
 	constructor(public recipeDetailPageStore: RecipeDetailPageStore) {}
 
-
 	recalculate(d: number, current: number): number {
 		let i = (current / d) * this.model.defaultPortions;
 		return i;
 	}
 
 	ngOnInit() {
-		this.recipeDetailPageStore.fetchData({});
+		this.recipeDetailPageStore.init({});
 	}
 
 	toggleEdittiongMode() {

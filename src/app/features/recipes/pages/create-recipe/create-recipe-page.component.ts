@@ -33,8 +33,9 @@ export class CreateRecipePageComponent {
 			templateOptions: {
 				// translate: true,,
 				label: "Název receptu",
-				placeholder: "Název receptu",
+				placeholder: "Cola s rumem",
 				required: true,
+        maxLength: 30
 			},
 		},
 		{
@@ -44,8 +45,9 @@ export class CreateRecipePageComponent {
 			templateOptions: {
 				// translate: true,
 				label: "Popis přípravy a receptu",
-				placeholder: "Popis přípravy a receptu",
+				placeholder: "Slejeme dohromdy",
 				required: true,
+        maxLength: 256
 			},
 		},
 		{
@@ -55,7 +57,7 @@ export class CreateRecipePageComponent {
 			templateOptions: {
 				// translate: true,
 				label: "Počet porcí",
-				placeholder: "Počet porcí",
+				placeholder: "1",
 				required: true,
 			},
 		},
@@ -65,8 +67,8 @@ export class CreateRecipePageComponent {
 			className: "p-col-12",
 			templateOptions: {
 				// translate: true,
-				label: "Doba na přípravu",
-				placeholder: "Doba na přípravu",
+        label: "Doba na přípravu (min)",
+				placeholder: "v minutach",
 				required: true,
 			},
 		},

@@ -1,13 +1,27 @@
 <ral-title heading="Recipes">
 
-  <button [routerLink]="['create-recipe']" label="Create" pButton></button>
+  <div class="p-grid p-grid--with-bottom">
+    <div class="p-col-fixed">
+      <button [routerLink]="['create-recipe']" label="Create" pButton></button>
+    </div>
+    <div class="p-col-fixed">
+      <button filter icon="fa-filter" (click)="toggle()" label="Filter" pButton></button>
+    </div>
+  </div>
 </ral-title>
 
 <cook-book-recipes-grid [linkToDetail]="linkToDetail" [data]="recipesPageStore$.data$ | async"
-  (lazyLoad)="recipesPageStore$.onLazyLoad($event)" (deleteBtnClick)="recipesPageStore$.delete($event)"></cook-book-recipes-grid>
+  (lazyLoad)="recipesPageStore$.onLazyLoad($event)" (deleteBtnClick)="recipesPageStore$.delete($event)">
+</cook-book-recipes-grid>
 
 
 
 <pre>
   {{recipesPageStore$.data$ | async | json}}
 </pre>
+
+
+<p-sidebar [(visible)]="filterShow" position="right">
+  todo: filter form
+
+</p-sidebar>

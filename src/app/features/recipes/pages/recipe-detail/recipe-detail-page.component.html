@@ -16,12 +16,18 @@
 
   <div class="p-grid p-grid--with-bottom">
     <div class="p-col-12 p-md-8">
-      <p-card>
+      <p-card *ngIf="combineddata$ | async as data">
         <h3 class="h3">{{data.name}}</h3>
-        <span>{{data.defaultPortions}}</span>
 
-        <ul>
-          <li *ngFor="let item of data.ingredients">
+        <p><mark>vychozí velikost:</mark> {{data.defaultPortions}} porce</p>
+        <p><mark>příprava:</mark> {{data.defaultPortions}} min</p>
+        <p>{{data.description}}</p>
+        <h4 class="h4">
+
+          přepočítáno na {{model.defaultPortions}} porce
+        </h4>
+        <ul class="list" style="padding-left: 20px;">
+          <li *ngFor="let item of data.materials">
             <span>
               {{item.material.name}}
             </span>
@@ -44,9 +50,6 @@
             <div class="p-col-12">
               <formly-form [form]="form" [fields]="fields" [model]="model" [options]="options">
               </formly-form>
-            </div>
-            <div class="p-col-12">
-              <button pButton type="submit" [label]="'send'"></button>
             </div>
           </div>
         </form>

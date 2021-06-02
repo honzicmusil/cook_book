@@ -9,7 +9,12 @@ import { RecipesPageStore } from "./recipes-page.store";
 	providers: [RecipesPageStore],
 })
 export class RecipesPageComponent {
+	filterShow = false;
 	linkToDetail: (data: Recipe) => string[] = (data) => ["./", data.id];
 
 	constructor(public recipesPageStore$: RecipesPageStore) {}
+
+	toggle() {
+		this.filterShow = !this.filterShow;
+	}
 }

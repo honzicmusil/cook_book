@@ -7,11 +7,13 @@ export class RecipesService {
 	SERVICE_URL = "http://localhost:3000/recipe";
 	constructor(private http: HttpClient) {}
 
-	public getAll() {
+	public getAll(params: { name?: string; materials?: string[] }) {
 		return this.http.get<{
 			itemList?: Recipe[];
 			error?: string;
-		}>(`${this.SERVICE_URL}/list`);
+		}>(`${this.SERVICE_URL}/list`, {
+			params,
+		});
 	}
 
 	public delete(id: string) {
@@ -32,14 +34,14 @@ export class RecipesService {
 		);
 	}
 
-  public put(item: Omit<Recipe, "id">) {
+	public put(item: Omit<Recipe, "id">) {
 		return this.http.put<Recipe & { error?: string }>(
 			`${this.SERVICE_URL}/update`,
 			item
 		);
 	}
 
-  public get(id: string) {
+	public get(id: string) {
 		return this.http.get<Recipe & { error?: string }>(
 			`${this.SERVICE_URL}/get`,
 			{

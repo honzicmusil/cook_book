@@ -20,18 +20,23 @@ export interface RecipesPageState {
 	data: Recipe[];
 	totalCount: number;
 	loading: boolean;
+	filter: {
+		name?: string;
+		materials?: string[];
+	};
 }
 
 @Injectable()
 export class RecipesPageStore extends ComponentStore<RecipesPageState> {
-	constructor(
-		protected store$: Store<never>,
-		private service: RecipesService
-	) {
+	constructor(protected store$: Store<never>, private service: RecipesService) {
 		super({
 			data: [],
 			totalCount: 10,
 			loading: true,
+			filter: {
+        // name: "cola"
+        // materials: ["d1c665d2-d945-415f-9e9a-d2d42132a897"]
+      },
 		});
 	}
 
@@ -40,6 +45,7 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 	readonly data$ = this.select((state) => state.data);
 
 	readonly totalCount$ = this.select((state) => state.totalCount);
+	readonly filter$ = this.select((state) => state.filter);
 
 	public readonly requesting = this.updater((state) => ({
 		...state,
@@ -66,11 +72,11 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 
 	readonly fetchData = this.effect((input: Observable<never>) => {
 		return input.pipe(
+			withLatestFrom(this.filter$),
 			tap(() => this.requesting()),
-			exhaustMap(() =>
-				this.service.getAll().pipe(
+			exhaustMap(([p, filters]) =>
+				this.service.getAll(filters).pipe(
 					map((data) => {
-
 						if (data.error) throw data;
 						else if (data.itemList) this.updateData(data.itemList);
 					}),
@@ -86,7 +92,7 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 		);
 	});
 
-  readonly delete = this.effect((input: Observable<string>) => {
+	readonly delete = this.effect((input: Observable<string>) => {
 		return input.pipe(
 			tap(() => this.requesting()),
 			exhaustMap((p) =>
@@ -107,7 +113,7 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 						}
 					}),
 					tap(() => this.requestFinished()),
-          tap(() => this.fetchData()),
+					tap(() => this.fetchData()),
 					catchError((p) =>
 						this.httpError(
 							(p.hasOwnProperty("error") && p.error) ||
@@ -118,8 +124,6 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 			)
 		);
 	});
-
-
 
 	httpError(p: string) {
 		// Obecnej toad na HTTP error Connection error
