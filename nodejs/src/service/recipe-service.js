@@ -20,7 +20,7 @@ const list = async (req, res) => {
 }
 
 const get = async (req, res) => {
-    let {id} = req.body
+	let { id } = req.query;
     if (id && typeof id === "string" && id.length < 36) {
         try {
             let result = await recipeDao.getRecipe(id)
@@ -96,7 +96,7 @@ const update = async (req, res) => {
 }
 
 const remove = async (req, res) => {
-    let {id} = req.body
+	let { id } = req.query;
     if (id && typeof id === "string" && id.length < 36) {
         try {
             await recipeDao.deleteRecipe(id)
