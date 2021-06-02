@@ -40,14 +40,14 @@ const get = async (req, res) => {
 }
 
 const create = async (req, res) => {
-    let {name, description, preparationLength, materials} = req.body
+    let {name, description, preparationLength, materials,defaultPortions} = req.body
 
     if (name && typeof name === "string" && name.length < 30 &&
         description && typeof description === "string" && description.length < 256 &&
         preparationLength && typeof preparationLength === "number" && preparationLength > 0 &&
         materials && Array.isArray(materials) && materials.length > 0) {
 
-        const recipe = new Recipe(name, description, preparationLength, materials)
+        const recipe = new Recipe(name, description, preparationLength, materials,defaultPortions)
         try {
             let result = await recipeDao.addRecipe(recipe)
             res.status(200).json(result)
@@ -68,14 +68,14 @@ const create = async (req, res) => {
 }
 
 const update = async (req, res) => {
-    let {id, name, description, preparationLength, materials} = req.body
+    let {id, name, description, preparationLength, materials,defaultPortions} = req.body
     if (id && typeof id === "string" && id.length < 36 &&
         name && typeof name === "string" && name.length < 30 &&
         description && typeof description === "string" && description.length < 256 &&
         preparationLength && typeof preparationLength === "number" && preparationLength > 0 &&
         materials && Array.isArray(materials) && materials.length > 0) {
 
-        const recipe = {id, name, description, preparationLength, materials}
+        const recipe = {id, name, description, preparationLength, materials,defaultPortions}
         try {
             let result = await recipeDao.updateRecipe(recipe)
             res.status(200).json(result)
