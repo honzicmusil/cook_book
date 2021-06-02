@@ -1,9 +1,25 @@
-<ral-title heading="MaterialDetail"></ral-title>
+<ral-title heading="MaterialDetail">
+  <div class="p-grid p-grid--with-bottom">
+    <div class="p-col-fixed">
+      <button pButton label="Back" [routerLink]="['../']" class=""></button>
+    </div>
+    <div class="p-col-fixed" *ngIf="!editMode">
+      <button pButton label="Edit" (click)="toggleEdittiongMode()" class=""></button>
+    </div>
+    <div class="p-col-fixed" *ngIf="editMode">
+      <button pButton label="End Editing" (click)="toggleEdittiongMode()" class=""></button>
+    </div>
+  </div>
+</ral-title>
+<p-card *ngIf="editMode">
+  {{
+  materialDetailPageStore.data$ | async | json
+  }}
+</p-card>
 
-
-<p-card>
-
-
+<p-card *ngIf="!editMode">
+  <cook-book-edit-material-form [data]="materialDetailPageStore.data$ | async" (onFormSubmit)="onFormSubmit($event)">
+  </cook-book-edit-material-form>
   <!-- <form [formGroup]="form" (ngSubmit)="onFormSubmit(model)">
     <div class="p-grid">
       <div class="p-col-12">

@@ -1,24 +1,19 @@
-import { MaterialsPageComponent } from './materials/materials-page.component';
+import { MaterialsPageComponent } from "./materials/materials-page.component";
 
-import { MaterialDetailPageComponent } from './material-detail/material-detail-page.component';
+import { MaterialDetailPageComponent } from "./material-detail/material-detail-page.component";
 
-import { CreateMaterialPageComponent } from './create-material/create-material-page.component';
-
-import { EditMaterialPageComponent } from './edit-material/edit-material-page.component';
+import { CreateMaterialPageComponent } from "./create-material/create-material-page.component";
 
 export const MATERIALS_PAGES = [
-  MaterialsPageComponent,
+	MaterialsPageComponent,
 
-  MaterialDetailPageComponent,
+	MaterialDetailPageComponent,
 
-  CreateMaterialPageComponent,
-
-  EditMaterialPageComponent,
+	CreateMaterialPageComponent,
 ];
 
 export {
-  MaterialsPageComponent,
-  MaterialDetailPageComponent,
-  CreateMaterialPageComponent,
-  EditMaterialPageComponent
+	MaterialsPageComponent,
+	MaterialDetailPageComponent,
+	CreateMaterialPageComponent,
 };

@@ -20,6 +20,13 @@ export class MaterialService {
 			item
 		);
 	}
+
+	public put(item: Omit<Material, "id">) {
+		return this.http.put<Material & { error?: string }>(
+			`${this.SERVICE_URL}/put`,
+			item
+		);
+	}
 	public delete(id: string) {
 		return this.http.delete<Material & { error?: string }>(
 			`${this.SERVICE_URL}/delete`,

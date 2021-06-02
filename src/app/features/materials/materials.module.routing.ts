@@ -12,6 +12,10 @@ const routes: Routes = [
     component: CreateMaterialPageComponent,
   },
   {
+    path: 'create-material',
+    component: CreateMaterialPageComponent,
+  },
+  {
     path: ':id',
     component: MaterialDetailPageComponent,
   },

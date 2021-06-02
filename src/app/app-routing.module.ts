@@ -32,7 +32,7 @@ import { LayoutComponent } from './features/layout';
           ],
         },
       ],
-      { initialNavigation: 'enabled' }
+      { initialNavigation: 'enabled', paramsInheritanceStrategy: 'always' }
     ),
   ],
   exports: [RouterModule],
