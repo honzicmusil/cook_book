@@ -12,7 +12,7 @@
   </div>
 </ral-title>
 
-<p-card *ngIf="recipeDetailPageStore.editNonMode$ | async"></p-card>
+<div *ngIf="recipeDetailPageStore.editNonMode$ | async">
 
   <div class="p-grid p-grid--with-bottom">
     <div class="p-col-12 p-md-8">
@@ -56,7 +56,7 @@
 </div>
 
 <p-card *ngIf="recipeDetailPageStore.editMode$ | async">
-  <cook-book-edit-recipe-form [data]="materialDetailPageStore.data$ | async" (formSubmit)="formSubmit($event)">
+  <cook-book-edit-recipe-form [data]="recipeDetailPageStore.data$ | async" (formSubmit)="formSubmit($event)">
   </cook-book-edit-recipe-form>
 
 

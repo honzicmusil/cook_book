@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { FormlyFieldConfig, FormlyFormOptions } from "@ngx-formly/core";
+import { map } from "rxjs/operators";
+import { MaterialService } from "src/app/features/api-services/meterials.service";
 import { EditRecipeFormType } from "./edit-recipe-form.type";
 
 @Component({
@@ -12,8 +14,10 @@ export class EditRecipeFormComponent {
 	form = new FormGroup({});
 	model: EditRecipeFormType = {
 		name: "",
+		description: "",
 		defaultPortions: 0,
-		ingredients: [],
+		preparationLength: 0,
+		materials: [],
 	};
 	options: FormlyFormOptions = {};
 	fields: FormlyFieldConfig[] = [
@@ -36,7 +40,7 @@ export class EditRecipeFormComponent {
 			},
 		},
 		{
-			key: "ingredients",
+			key: "materials",
 			type: "repeat",
 			className: "p-col-12",
 			defaultValue: [{}],
@@ -58,6 +62,14 @@ export class EditRecipeFormComponent {
 							translate: true,
 							label: "Ingredience",
 							required: true,
+              options: this.materialService.getAll().pipe(
+								map((p) =>
+									p.itemList.map((item) => ({
+										label: item.name + "(" + item.unit + ")",
+										value: item.id,
+									}))
+								)
+							),
 						},
 					},
 					{
@@ -76,6 +88,12 @@ export class EditRecipeFormComponent {
 	];
 
 	@Output() formSubmit = new EventEmitter<EditRecipeFormType>();
+
+  @Input() set data(value: EditRecipeFormType) {
+		this.model = JSON.parse(JSON.stringify(value));
+	}
+
+  constructor(private materialService: MaterialService) {}
 
 	onFormSubmit(model: EditRecipeFormType) {
 		if (this.form.valid) {

@@ -22,7 +22,7 @@ const list = async (req, res) => {
 
 const get = async (req, res) => {
 	let { id } = req.query;
-	if (id && typeof id === "string" && id.length < 36) {
+	if (id && typeof id === "string" && id.length <= 36) {
 		try {
 			let result = await recipeDao.getRecipe(id);
 			res.status(200).json(result);
@@ -104,7 +104,7 @@ const update = async (req, res) => {
 	if (
 		id &&
 		typeof id === "string" &&
-		id.length < 36 &&
+		id.length <= 36 &&
 		name &&
 		typeof name === "string" &&
 		name.length < 30 &&

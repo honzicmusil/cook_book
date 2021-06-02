@@ -13,7 +13,7 @@ import {
 
 import { selectRouteParam } from "src/app/root.state";
 import { ToastActions } from "src/app/features/toasts";
-import { Material, Recipe } from "src/app/features/models";
+import { Recipe } from "src/app/features/models";
 import { RecipesService } from "src/app/features/api-services/recipes.service";
 
 export interface RecipeDetailPageState {
@@ -85,7 +85,7 @@ export class RecipeDetailPageStore extends ComponentStore<RecipeDetailPageState>
 		);
 	});
 
-	readonly editData = this.effect((input: Observable<Omit<Material, "id">>) => {
+	readonly editData = this.effect((input: Observable<Omit<Recipe, "id">>) => {
 		return input.pipe(
 			tap(() => this.requesting()),
 			exhaustMap((p) =>

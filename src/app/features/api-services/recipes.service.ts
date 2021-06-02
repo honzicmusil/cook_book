@@ -31,4 +31,22 @@ export class RecipesService {
 			item
 		);
 	}
+
+  public put(item: Omit<Recipe, "id">) {
+		return this.http.put<Recipe & { error?: string }>(
+			`${this.SERVICE_URL}/update`,
+			item
+		);
+	}
+
+  public get(id: string) {
+		return this.http.get<Recipe & { error?: string }>(
+			`${this.SERVICE_URL}/get`,
+			{
+				params: {
+					id: id,
+				},
+			}
+		);
+	}
 }
