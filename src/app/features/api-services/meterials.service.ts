@@ -22,7 +22,6 @@ export class MaterialService {
 	}
 
 	public put(item: Omit<Material, "id">) {
-    console.log(item);
 		return this.http.put<Material & { error?: string }>(
 			`${this.SERVICE_URL}/update`,
 			item

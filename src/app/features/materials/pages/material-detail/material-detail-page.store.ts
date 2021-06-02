@@ -120,7 +120,6 @@ export class MaterialDetailPageStore extends ComponentStore<MaterialDetailPageSt
 
 	httpError(p: string) {
 		// Obecnej toad na HTTP error Connection error
-		console.log(p);
 		this.store$.dispatch(
 			ToastActions.showToast({
 				message: {

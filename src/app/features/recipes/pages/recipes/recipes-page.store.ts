@@ -70,7 +70,7 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 			exhaustMap(() =>
 				this.service.getAll().pipe(
 					map((data) => {
-						console.log(data);
+
 						if (data.error) throw data;
 						else if (data.itemList) this.updateData(data.itemList);
 					}),
@@ -123,7 +123,6 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 
 	httpError(p: string) {
 		// Obecnej toad na HTTP error Connection error
-		console.log(p);
 		this.store$.dispatch(
 			ToastActions.showToast({
 				message: {

@@ -99,7 +99,6 @@ class MaterialDao {
 			materials = JSON.parse(await rf(DEFAULT_STORAGE_PATH));
 		} catch (e) {
 			if (e.code === "ENOENT") {
-				console.log(e);
 				console.info("No storage found, initializing new one...");
 				materials = {};
 			} else {

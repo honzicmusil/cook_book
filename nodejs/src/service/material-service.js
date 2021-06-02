@@ -58,7 +58,6 @@ const create = async (req, res) => {
 			let result = await materialDao.addMaterial(material);
 			res.status(200).json(result);
 		} catch (e) {
-			console.log(e);
 			if (e.code === "DUPLICATE_CODE") {
 				res.status(400).json({ error: e });
 			} else if (e.code === "FAILED_TO_STORE_MATERIAL") {
@@ -84,7 +83,7 @@ const update = async (req, res) => {
 		typeof name === "string" &&
 		name.length < 30 &&
 		unit &&
-        
+
 		typeof unit === "string" &&
 		unit.length < 10
 	) {

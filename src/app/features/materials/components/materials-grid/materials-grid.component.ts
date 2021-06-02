@@ -68,7 +68,6 @@ export class MaterialsGridComponent {
         JSON.stringify(event.multiSortMeta)
     ) {
       this.flag = false;
-      console.log(event);
       this.lazyLoad.emit(JSON.parse(JSON.stringify(event)));
     }
   }

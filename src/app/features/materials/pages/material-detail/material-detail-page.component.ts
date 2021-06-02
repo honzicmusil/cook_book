@@ -20,7 +20,7 @@ export class MaterialDetailPageComponent implements OnInit {
 	}
 
 	formSubmit(model: EditMaterialFormType) {
-    console.log(model);
+
 		this.materialDetailPageStore.editData(model);
 	}
 }

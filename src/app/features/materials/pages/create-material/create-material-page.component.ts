@@ -43,9 +43,7 @@ export class CreateMaterialPageComponent {
 	constructor(public createMaterialPageStore: CreateMaterialPageStore) {}
 
 	onFormSubmit(model: CreateMaterialFormType) {
-		console.log(model);
 		if (this.form.valid) {
-      console.log(model);
 			this.createMaterialPageStore.postData(
 				JSON.parse(JSON.stringify(model)) as CreateMaterialFormType
 			);

@@ -85,7 +85,6 @@ export class CreateMaterialPageStore extends ComponentStore<MaterialPageState> {
 
 	httpError(p: string) {
 		// Obecnej toad na HTTP error Connection error
-		console.log(p);
 		this.store$.dispatch(
 			ToastActions.showToast({
 				message: {
