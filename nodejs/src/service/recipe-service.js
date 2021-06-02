@@ -5,10 +5,14 @@ const { uuid } = require("uuidv4");
 let recipeDao = new RecipeDao();
 
 const list = async (req, res) => {
-	let { name } = req.body;
-	if (!name || (name && typeof name === "string" && name.length < 30)) {
+	let { name, materials } = req.body;
+	if (
+		(!name || (name && typeof name === "string" && name.length < 30)) &&
+		(!materials || (Array.isArray(materials) && materials.length > 0))
+	) {
 		try {
-			let recipeList = await recipeDao.getRecipeList(name);
+			let recipeList = await recipeDao.getRecipeList(name, materials);
+
 			res.status(200).json({ itemList: recipeList, total: recipeList.length });
 		} catch (e) {
 			res.status(500).json({ error: e });
@@ -41,7 +45,6 @@ const get = async (req, res) => {
 };
 
 const create = async (req, res) => {
-
 	let {
 		name,
 		description,

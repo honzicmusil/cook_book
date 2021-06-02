@@ -12,13 +12,17 @@ const DEFAULT_STORAGE_PATH = path.join(
 );
 
 class RecipeDao {
-	async getRecipeList(name) {
+	async getRecipeList(name, materials) {
 		const recipes = await this._loadAllRecipes();
+
 		let recipeList = [];
 		for (let id in recipes) {
 			if (
-				!name ||
-				recipes[id].name.toLowerCase().includes(name.toLowerCase())
+				(!name ||
+					recipes[id].name.toLowerCase().includes(name.toLowerCase())) &&
+				(!materials ||
+					recipes[id].materials.filter((p) => materials.contains(p.material))
+						.lenght > 0)
 			) {
 				recipeList.push(recipes[id]);
 			}
