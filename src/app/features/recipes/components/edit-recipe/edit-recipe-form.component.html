@@ -1,16 +1,7 @@
-<ral-title heading="EditRecipe"></ral-title>
-
-<p-card>
-
 <form [formGroup]="form" (ngSubmit)="onFormSubmit(model)">
   <div class="p-grid">
     <div class="p-col-12">
-      <formly-form
-        [form]="form"
-        [fields]="fields"
-        [model]="model"
-        [options]="options"
-      >
+      <formly-form [form]="form" [fields]="fields" [model]="model" [options]="options">
       </formly-form>
     </div>
     <div class="p-col-12">
@@ -18,5 +9,3 @@
     </div>
   </div>
 </form>
-  
-</p-card>

@@ -10,24 +10,23 @@ import {
 	tap,
 	withLatestFrom,
 } from "rxjs/operators";
-import { MATERIALS_GRID_TEST_DATA } from "../../components";
-import { LazyLoadEvent } from "primeng/api";
+
 import { selectRouteParam } from "src/app/root.state";
 import { ToastActions } from "src/app/features/toasts";
-import { Material } from "src/app/features/models";
-import { MaterialService } from "src/app/features/api-services/meterials.service";
+import { Material, Recipe } from "src/app/features/models";
+import { RecipesService } from "src/app/features/api-services/recipes.service";
 
-export interface MaterialDetailPageState {
-	data: Material | undefined | null;
+export interface RecipeDetailPageState {
+	data: Recipe | undefined | null;
 	loading: boolean;
 	editMode: boolean;
 }
 
 @Injectable()
-export class MaterialDetailPageStore extends ComponentStore<MaterialDetailPageState> {
+export class RecipeDetailPageStore extends ComponentStore<RecipeDetailPageState> {
 	constructor(
 		protected store$: Store<never>,
-		private service: MaterialService
+		private service: RecipesService
 	) {
 		super({
 			data: null,
@@ -52,7 +51,7 @@ export class MaterialDetailPageStore extends ComponentStore<MaterialDetailPageSt
 		loading: false,
 	}));
 
-	private readonly updateData = this.updater((state, input: Material) => ({
+	private readonly updateData = this.updater((state, input: Recipe) => ({
 		...state,
 		data: input,
 	}));

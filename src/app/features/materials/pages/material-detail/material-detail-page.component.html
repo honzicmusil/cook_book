@@ -11,13 +11,13 @@
     </div>
   </div>
 </ral-title>
-<p-card *ngIf="materialDetailPageStore.editMode$ | async">
+<p-card *ngIf="materialDetailPageStore.editNonMode$ | async">
   {{
   materialDetailPageStore.data$ | async | json
   }}
 </p-card>
 
-<p-card *ngIf="materialDetailPageStore.editNonMode$ | async">
+<p-card *ngIf="materialDetailPageStore.editMode$ | async">
   <cook-book-edit-material-form [data]="materialDetailPageStore.data$ | async" (formSubmit)="formSubmit($event)">
   </cook-book-edit-material-form>
   <!-- <form [formGroup]="form" (ngSubmit)="onFormSubmit(model)">

@@ -10,6 +10,7 @@ import { RecipesRoutingModule } from './recipes.module.routing';
 import { RECIPES_PAGES } from './pages';
 import { TitleModule } from '../base-ui';
 import { RecipesGridModule } from './components/recipes-grid';
+import { EditRecipeFormComponent } from './components/edit-recipe/edit-recipe-form.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,7 @@ import { RecipesGridModule } from './components/recipes-grid';
     RecipesGridModule
   ],
   exports: [],
-  declarations: [...RECIPES_PAGES],
+  declarations: [...RECIPES_PAGES,EditRecipeFormComponent],
   providers: [],
 })
 export class RecipesModule {}
