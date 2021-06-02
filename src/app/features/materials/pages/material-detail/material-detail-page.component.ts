@@ -9,7 +9,6 @@ import { MaterialDetailPageStore } from "./material-detail-page.store";
 	providers: [MaterialDetailPageStore],
 })
 export class MaterialDetailPageComponent implements OnInit {
-	editMode = false;
 	constructor(public materialDetailPageStore: MaterialDetailPageStore) {}
 
 	ngOnInit() {
@@ -17,7 +16,7 @@ export class MaterialDetailPageComponent implements OnInit {
 	}
 
 	toggleEdittiongMode() {
-		this.editMode = !this.editMode;
+	this.materialDetailPageStore.toggleEditMode();
 	}
 
 	onFormSubmit(model: EditMaterialFormType) {

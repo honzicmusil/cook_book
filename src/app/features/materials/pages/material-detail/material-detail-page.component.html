@@ -3,21 +3,21 @@
     <div class="p-col-fixed">
       <button pButton label="Back" [routerLink]="['../']" class=""></button>
     </div>
-    <div class="p-col-fixed" *ngIf="!editMode">
+    <div class="p-col-fixed" *ngIf="materialDetailPageStore.editNonMode$ | async">
       <button pButton label="Edit" (click)="toggleEdittiongMode()" class=""></button>
     </div>
-    <div class="p-col-fixed" *ngIf="editMode">
+    <div class="p-col-fixed" *ngIf="materialDetailPageStore.editMode$ | async">
       <button pButton label="End Editing" (click)="toggleEdittiongMode()" class=""></button>
     </div>
   </div>
 </ral-title>
-<p-card *ngIf="editMode">
+<p-card *ngIf="materialDetailPageStore.editMode$ | async">
   {{
   materialDetailPageStore.data$ | async | json
   }}
 </p-card>
 
-<p-card *ngIf="!editMode">
+<p-card *ngIf="materialDetailPageStore.editNonMode$ | async">
   <cook-book-edit-material-form [data]="materialDetailPageStore.data$ | async" (onFormSubmit)="onFormSubmit($event)">
   </cook-book-edit-material-form>
   <!-- <form [formGroup]="form" (ngSubmit)="onFormSubmit(model)">

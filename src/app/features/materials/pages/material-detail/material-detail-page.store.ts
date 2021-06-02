@@ -20,6 +20,7 @@ import { MaterialService } from "src/app/features/api-services/meterials.service
 export interface MaterialDetailPageState {
 	data: Material | undefined | null;
 	loading: boolean;
+	editMode: boolean;
 }
 
 @Injectable()
@@ -31,12 +32,15 @@ export class MaterialDetailPageStore extends ComponentStore<MaterialDetailPageSt
 		super({
 			data: null,
 			loading: false,
+			editMode: false,
 		});
 	}
 
 	readonly loading$ = this.select((state) => state.loading);
 
 	readonly data$ = this.select((state) => state.data);
+	readonly editMode$ = this.select((state) => state.editMode);
+	readonly editNonMode$ = this.select((state) => !state.editMode);
 
 	public readonly requesting = this.updater((state) => ({
 		...state,
@@ -53,6 +57,11 @@ export class MaterialDetailPageStore extends ComponentStore<MaterialDetailPageSt
 		data: input,
 	}));
 
+	readonly toggleEditMode = this.updater((state) => ({
+		...state,
+		editMode: !state.editMode,
+	}));
+
 	readonly fetchData = this.effect((input: Observable<unknown>) => {
 		return input.pipe(
 			withLatestFrom(this.store$.pipe(select(selectRouteParam("id")))),
@@ -62,16 +71,7 @@ export class MaterialDetailPageStore extends ComponentStore<MaterialDetailPageSt
 					map((data) => {
 						if (data.error) throw data;
 						else if (!data.error) {
-							this.store$.dispatch(
-								ToastActions.showToast({
-									message: {
-										severity: "sucess",
-										summary: "Saved",
-										detail: `${data.name} was created`,
-									},
-								})
-								//TODO: redirect to grid?
-							);
+							this.updateData(data);
 						}
 					}),
 					tap(() => this.requestFinished()),
