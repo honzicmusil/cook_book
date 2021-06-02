@@ -25,10 +25,10 @@ export class RecipesService {
 		);
 	}
 
-	/* public create(item: Omit<Recipe, "id">) {
+	public create(item: Omit<Recipe, "id">) {
 		return this.http.post<Recipe & { error?: string }>(
 			`${this.SERVICE_URL}/create`,
 			item
 		);
-	} */
+	}
 }

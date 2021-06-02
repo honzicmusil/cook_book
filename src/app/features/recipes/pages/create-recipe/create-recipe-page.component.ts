@@ -13,6 +13,8 @@ export class CreateRecipePageComponent {
   model: CreateRecipeFormType = {
     name: "",
      defaultPortions: 0,
+     description: "",
+     preparationLenght: 0,
      ingredients: []
   };
   options: FormlyFormOptions = {};
@@ -22,8 +24,21 @@ export class CreateRecipePageComponent {
         type: 'input',
         className: 'p-col-12',
         templateOptions: {
-          // translate: true,
+          // translate: true,,
+          label: 'Název receptu',
           placeholder: 'Název receptu',
+          required: true
+        },
+      },
+      {
+        key: 'description',
+        type: 'textarea',
+        className: 'p-col-12',
+        templateOptions: {
+          // translate: true,
+          label: 'Popis přípravy a receptu',
+          placeholder: 'Popis přípravy a receptu',
+          required: true
         },
       },
       {
@@ -32,7 +47,20 @@ export class CreateRecipePageComponent {
         className: 'p-col-12',
         templateOptions: {
           // translate: true,
+          label: 'Počet porcí',
           placeholder: 'Počet porcí',
+          required: true
+        },
+      },
+      {
+        key: 'preparationLenght',
+        type: 'number',
+        className: 'p-col-12',
+        templateOptions: {
+          // translate: true,
+          label: 'Doba na přípravu',
+          placeholder: 'Doba na přípravu',
+          required: true
         },
       },
       {
