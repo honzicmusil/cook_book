@@ -15,15 +15,13 @@ import { selectRouteParam } from "src/app/root.state";
 import { ToastActions } from "src/app/features/toasts";
 import { Recipe } from "src/app/features/models";
 import { RecipesService } from "src/app/features/api-services/recipes.service";
+import { RecipesFilterFormType } from "../../components/recipes-filter/recipes-filter-form.tyle";
 
 export interface RecipesPageState {
 	data: Recipe[];
 	totalCount: number;
 	loading: boolean;
-	filter: {
-		name?: string;
-		materials?: string[];
-	};
+	filter:RecipesFilterFormType
 }
 
 @Injectable()
@@ -63,9 +61,22 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 		data: input,
 	}));
 
+	private readonly _updateFilter = this.updater((state, filter: RecipesFilterFormType) => ({
+		...state,
+		filter,
+	}));
+
 	readonly onLazyLoad = this.effect((input: Observable<LazyLoadEvent>) => {
 		return input.pipe(
-			// tap((data) => this.onLazyLoad(data)),
+
+			tap(() => this.fetchData())
+		);
+	});
+
+	readonly updateFitler = this.effect((input: Observable<RecipesFilterFormType>) => {
+		return input.pipe(
+			tap((p) => console.log(p)),
+			tap((p) => this._updateFilter(p)),
 			tap(() => this.fetchData())
 		);
 	});
@@ -74,6 +85,7 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 		return input.pipe(
 			withLatestFrom(this.filter$),
 			tap(() => this.requesting()),
+			tap(([p, filters]) => console.log(filters)),
 			exhaustMap(([p, filters]) =>
 				this.service.getAll(filters).pipe(
 					map((data) => {

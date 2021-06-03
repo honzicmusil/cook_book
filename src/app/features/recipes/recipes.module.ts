@@ -10,8 +10,8 @@ import { RecipesRoutingModule } from "./recipes.module.routing";
 import { RECIPES_PAGES } from "./pages";
 import { TitleModule } from "../base-ui";
 import { RecipesGridModule } from "./components/recipes-grid";
-import { EditRecipeFormComponent } from "./components/edit-recipe/edit-recipe-form.component";
 import { SidebarModule } from "primeng/sidebar";
+import { RECIPES_COMPONENTS } from "./components";
 @NgModule({
 	imports: [
 		CommonModule,
@@ -28,7 +28,7 @@ import { SidebarModule } from "primeng/sidebar";
 		SidebarModule,
 	],
 	exports: [],
-	declarations: [...RECIPES_PAGES, EditRecipeFormComponent],
+	declarations: [...RECIPES_PAGES, ...RECIPES_COMPONENTS],
 	providers: [],
 })
 export class RecipesModule {}

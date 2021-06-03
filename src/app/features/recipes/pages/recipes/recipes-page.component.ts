@@ -1,5 +1,6 @@
 import { Component } from "@angular/core";
 import { Recipe } from "src/app/features/models";
+import { RecipesFilterFormType } from "../../components/recipes-filter/recipes-filter-form.tyle";
 import { RecipesPageStore } from "./recipes-page.store";
 
 @Component({
@@ -16,5 +17,10 @@ export class RecipesPageComponent {
 
 	toggle() {
 		this.filterShow = !this.filterShow;
+	}
+
+  onFormSubmit(model: RecipesFilterFormType) {
+    this.recipesPageStore$.updateFitler(model)
+
 	}
 }

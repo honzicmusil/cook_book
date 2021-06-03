@@ -1,4 +1,5 @@
 const fs = require("fs");
+
 const path = require("path");
 
 const rf = fs.promises.readFile;
@@ -21,8 +22,8 @@ class RecipeDao {
 				(!name ||
 					recipes[id].name.toLowerCase().includes(name.toLowerCase())) &&
 				(!materials ||
-					recipes[id].materials.filter((p) => materials.contains(p.material))
-						.lenght > 0)
+					recipes[id].materials.filter((p) => materials.includes(p.material))
+						.length > 0)
 			) {
 				recipeList.push(recipes[id]);
 			}

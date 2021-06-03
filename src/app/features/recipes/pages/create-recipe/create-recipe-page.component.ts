@@ -15,7 +15,7 @@ import { CreateRecipePageStore } from "./create-recipe-page.store";
   providers: [CreateRecipePageStore]
 })
 export class CreateRecipePageComponent {
-	constructor(private materialService: MaterialService, public createRecipePageStore: CreateRecipePageStore) {}
+
 	form = new FormGroup({});
 	model: CreateRecipeFormType = {
 		name: "",
@@ -119,8 +119,8 @@ export class CreateRecipePageComponent {
 			},
 		},
 	];
+	constructor(private materialService: MaterialService, public createRecipePageStore: CreateRecipePageStore) {}
 
-	@Output() formSubmit = new EventEmitter<CreateRecipeFormType>();
 
 	onFormSubmit(model: CreateRecipeFormType) {
 		console.log(model);

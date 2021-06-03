@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import 'scss/app/global';
+@import "scss/app/global";
 // import vsech libek
-@import 'ralba/main.scss';
+@import "ralba/main.scss";
+
+.p-sidebar-content {
+	height: 100%;
+}

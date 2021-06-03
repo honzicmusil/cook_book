@@ -6,6 +6,10 @@ let recipeDao = new RecipeDao();
 
 const list = async (req, res) => {
 	let { name, materials } = req.query;
+    // transform request
+	if (materials && !Array.isArray(materials)) materials = [materials];
+	if (name == "") name = undefined;
+
 	if (
 		(!name || (name && typeof name === "string" && name.length < 30)) &&
 		(!materials || (Array.isArray(materials) && materials.length > 0))
