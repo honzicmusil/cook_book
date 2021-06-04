@@ -145,7 +145,7 @@ export class RecipeDetailPageStore extends ComponentStore<RecipeDetailPageState>
 			exhaustMap((p) =>
 				this.service.put(p).pipe(
 					map((data) => {
-						if (data.error) throw data;
+						if (data.error) throw data && data.error.code;
 						else if (!data.error) {
 							this.store$.dispatch(
 								ToastActions.showToast({

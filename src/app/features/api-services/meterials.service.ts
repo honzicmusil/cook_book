@@ -10,25 +10,25 @@ export class MaterialService {
 	public getAll() {
 		return this.http.get<{
 			itemList?: Material[];
-			error?: string;
+			error?: { code: string };
 		}>(`${this.SERVICE_URL}/list`);
 	}
 
 	public create(item: Omit<Material, "id">) {
-		return this.http.post<Material & { error?: string }>(
+		return this.http.post<Material & { error?: { code: string } }>(
 			`${this.SERVICE_URL}/create`,
 			item
 		);
 	}
 
 	public put(item: Omit<Material, "id">) {
-		return this.http.put<Material & { error?: string }>(
+		return this.http.put<Material & { error?: { code: string } }>(
 			`${this.SERVICE_URL}/update`,
 			item
 		);
 	}
 	public delete(id: string) {
-		return this.http.delete<Material & { error?: string }>(
+		return this.http.delete<Material & { error?: { code: string } }>(
 			`${this.SERVICE_URL}/delete`,
 			{
 				params: {
@@ -39,7 +39,7 @@ export class MaterialService {
 	}
 
 	public get(id: string) {
-		return this.http.get<Material & { error?: string }>(
+		return this.http.get<Material & { error?: { code: string } }>(
 			`${this.SERVICE_URL}/get`,
 			{
 				params: {

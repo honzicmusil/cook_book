@@ -71,8 +71,7 @@ export class MaterialsPageStore extends ComponentStore<MaterialsPageState> {
 			exhaustMap(() =>
 				this.service.getAll().pipe(
 					map((data) => {
-
-						if (data.error) throw data;
+						if (data.error) throw data.error;
 						else if (data.itemList) this.updateData(data.itemList);
 					}),
 					tap(() => this.requestFinished()),
@@ -93,7 +92,7 @@ export class MaterialsPageStore extends ComponentStore<MaterialsPageState> {
 			exhaustMap((p) =>
 				this.service.delete(p).pipe(
 					map((data) => {
-						if (data.error) throw data;
+						if (data.error) throw data.error;
 						else if (!data.error) {
 							this.store$.dispatch(
 								ToastActions.showToast({
@@ -141,15 +140,17 @@ export class MaterialsPageStore extends ComponentStore<MaterialsPageState> {
 	//   );
 	// });
 
-	httpError(p: string) {
+	httpError(p: any) {
 		// Obecnej toad na HTTP error Connection error
-
+		console.log(p);
+		let message = p;
+		if (p && p.error && p.error.code) message = p.error.code;
 		this.store$.dispatch(
 			ToastActions.showToast({
 				message: {
 					severity: "error",
 					summary: "Server Error",
-					detail: p,
+					detail: message,
 				},
 			})
 		);

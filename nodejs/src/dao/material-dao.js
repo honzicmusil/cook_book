@@ -10,6 +10,12 @@ const DEFAULT_STORAGE_PATH = path.join(
 	"storage",
 	"materials.json"
 );
+const DEFAULT_RECIPES_STORAGE_PATH = path.join(
+	__dirname,
+	"..",
+	"storage",
+	"recipes.json"
+);
 
 class MaterialDao {
 	async getMaterialList(name) {
@@ -80,6 +86,28 @@ class MaterialDao {
 
 	async deleteMaterial(id) {
 		const materials = await this._loadAllMaterials();
+		const recipes = await this._loadAllRecipes();
+
+		if (!materials[id]) {
+			const e = new Error(
+				`Failed to find material with id '${id}' in local storage.`
+			);
+			e.code = "NOT_FOUND";
+			throw e;
+		}
+		for (let recipe in recipes) {
+			console.log(recipes[recipe]);
+			if (
+				recipes[recipe].materials.filter((p) => p.material == id).length > 0
+			) {
+				const e = new Error(
+					`Failed to delete material with id '${id}' bacause material is in used.`
+				);
+				e.code = "IN_USE_CANNOT_BE_DELETED";
+				throw e;
+			}
+		}
+
 		delete materials[id];
 		try {
 			await wf(DEFAULT_STORAGE_PATH, JSON.stringify(materials, null, 2));
@@ -109,6 +137,24 @@ class MaterialDao {
 			}
 		}
 		return materials;
+	}
+
+	async _loadAllRecipes() {
+		let recipes;
+		try {
+			recipes = JSON.parse(await rf(DEFAULT_RECIPES_STORAGE_PATH));
+		} catch (e) {
+			if (e.code === "ENOENT") {
+				console.info("No storage found, initializing new one...");
+				recipes = {};
+			} else {
+				throw new Error(
+					"Unable to read from storage. Wrong data format. " +
+						DEFAULT_STORAGE_PATH
+				);
+			}
+		}
+		return recipes;
 	}
 
 	_isDuplicate(materials, id) {

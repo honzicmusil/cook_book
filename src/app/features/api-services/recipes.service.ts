@@ -10,14 +10,14 @@ export class RecipesService {
 	public getAll(params: { name?: string; materials?: string[] }) {
 		return this.http.get<{
 			itemList?: Recipe[];
-			error?: string;
+			error?: { code: string };
 		}>(`${this.SERVICE_URL}/list`, {
 			params,
 		});
 	}
 
 	public delete(id: string) {
-		return this.http.delete<Recipe & { error?: string }>(
+		return this.http.delete<Recipe & { error?: { code: string } }>(
 			`${this.SERVICE_URL}/delete`,
 			{
 				params: {
@@ -28,21 +28,21 @@ export class RecipesService {
 	}
 
 	public create(item: Omit<Recipe, "id">) {
-		return this.http.post<Recipe & { error?: string }>(
+		return this.http.post<Recipe & { error?: { code: string } }>(
 			`${this.SERVICE_URL}/create`,
 			item
 		);
 	}
 
 	public put(item: Omit<Recipe, "id">) {
-		return this.http.put<Recipe & { error?: string }>(
+		return this.http.put<Recipe & { error?: { code: string } }>(
 			`${this.SERVICE_URL}/update`,
 			item
 		);
 	}
 
 	public get(id: string) {
-		return this.http.get<Recipe & { error?: string }>(
+		return this.http.get<Recipe & { error?: { code: string } }>(
 			`${this.SERVICE_URL}/get`,
 			{
 				params: {

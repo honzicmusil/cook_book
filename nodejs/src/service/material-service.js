@@ -51,8 +51,7 @@ const create = async (req, res) => {
 		typeof unit === "string" &&
 		unit.length < 10
 	) {
-
-		const material = new Material(name, unit)
+		const material = new Material(name, unit);
 
 		try {
 			let result = await materialDao.addMaterial(material);
@@ -83,7 +82,6 @@ const update = async (req, res) => {
 		typeof name === "string" &&
 		name.length < 30 &&
 		unit &&
-
 		typeof unit === "string" &&
 		unit.length < 10
 	) {
@@ -115,8 +113,13 @@ const remove = async (req, res) => {
 			await materialDao.deleteMaterial(id);
 			res.status(200).json({});
 		} catch (e) {
+            console.log(e)
 			if (e.code === "FAILED_TO_DELETE_MATERIAL") {
 				res.status(500).json({ error: e });
+			} else if (e.code === "IN_USE_CANNOT_BE_DELETED") {
+				res.status(500).json({ error: e });
+			} else if (e.code === "NOT_FOUND") {
+				res.status(404).json({ error: e });
 			} else {
 				res.status(500).json({ error: e });
 			}

@@ -61,7 +61,7 @@ export class CreateRecipePageStore extends ComponentStore<RecipePageState> {
 							this.store$.dispatch(
 								ToastActions.showToast({
 									message: {
-										severity: "sucess",
+										severity: "success",
 										summary: "Saved",
 										detail: `${data.name} was created`,
 									},

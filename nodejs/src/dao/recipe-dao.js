@@ -86,6 +86,13 @@ class RecipeDao {
 
 	async deleteRecipe(id) {
 		const recipes = await this._loadAllRecipes();
+		if (!recipes[id]) {
+			const e = new Error(
+				`Failed to find recipe with id '${id}' in local storage.`
+			);
+			e.code = "NOT_FOUND";
+			throw e;
+		}
 		delete recipes[id];
 		try {
 			await wf(DEFAULT_STORAGE_PATH, JSON.stringify(recipes, null, 2));

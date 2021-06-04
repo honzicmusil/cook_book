@@ -5,7 +5,7 @@ let recipeDao = new RecipeDao();
 
 const list = async (req, res) => {
 	let { name, materials } = req.query;
-    // transform request
+	// transform request
 	if (materials && !Array.isArray(materials)) materials = [materials];
 	if (name == "") name = undefined;
 
@@ -48,13 +48,8 @@ const get = async (req, res) => {
 };
 
 const create = async (req, res) => {
-	let {
-		name,
-		description,
-		preparationLength,
-		materials,
-		defaultPortions,
-	} = req.body;
+	let { name, description, preparationLength, materials, defaultPortions } =
+		req.body;
 
 	console.log(req.body);
 	if (
@@ -71,8 +66,13 @@ const create = async (req, res) => {
 		Array.isArray(materials) &&
 		materials.length > 0
 	) {
-
-		const recipe = new Recipe(name, description, preparationLength, materials, defaultPortions)
+		const recipe = new Recipe(
+			name,
+			description,
+			preparationLength,
+			materials,
+			defaultPortions
+		);
 
 		try {
 			let result = await recipeDao.addRecipe(recipe);
@@ -94,14 +94,8 @@ const create = async (req, res) => {
 };
 
 const update = async (req, res) => {
-	let {
-		id,
-		name,
-		description,
-		preparationLength,
-		materials,
-		defaultPortions,
-	} = req.body;
+	let { id, name, description, preparationLength, materials, defaultPortions } =
+		req.body;
 	if (
 		id &&
 		typeof id === "string" &&
@@ -148,6 +142,7 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
 	let { id } = req.query;
+
 	if (id && typeof id === "string" && id.length <= 36) {
 		try {
 			await recipeDao.deleteRecipe(id);
@@ -155,6 +150,8 @@ const remove = async (req, res) => {
 		} catch (e) {
 			if (e.code === "FAILED_TO_DELETE_RECIPE") {
 				res.status(500).json({ error: e });
+			}  else if (e.code === "NOT_FOUND") {
+				res.status(404).json({ error: e });
 			} else {
 				res.status(500).json({ error: e });
 			}
