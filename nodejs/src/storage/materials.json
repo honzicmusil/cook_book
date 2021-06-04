@@ -28,5 +28,15 @@
     "id": "7d37f067-ed32-4fab-b333-1f72575dfd36",
     "name": "Tequila",
     "unit": "ml"
+  },
+  "3656f6ea-1a76-40a6-aabb-58020dfd0f77": {
+    "name": "test",
+    "unit": "2",
+    "id": "3656f6ea-1a76-40a6-aabb-58020dfd0f77"
+  },
+  "1e8f7bfb-fc9a-4ff7-93d1-486c85c3777d": {
+    "id": "1e8f7bfb-fc9a-4ff7-93d1-486c85c3777d",
+    "name": "kolo",
+    "code": "1"
   }
 }

@@ -1,6 +1,5 @@
 const RecipeDao = require("../dao/recipe-dao");
-const Recipe = require("../model/recipe");
-const { uuid } = require("uuidv4");
+const { Recipe } = require("../model/recipe");
 
 let recipeDao = new RecipeDao();
 
@@ -72,14 +71,9 @@ const create = async (req, res) => {
 		Array.isArray(materials) &&
 		materials.length > 0
 	) {
-		const recipe = {
-			id: uuid(),
-			name,
-			description,
-			preparationLength,
-			materials,
-			defaultPortions,
-		};
+
+		const recipe = new Recipe(name, description, preparationLength, materials, defaultPortions)
+
 		try {
 			let result = await recipeDao.addRecipe(recipe);
 			res.status(200).json(result);

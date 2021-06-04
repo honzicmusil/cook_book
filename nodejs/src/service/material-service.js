@@ -1,6 +1,5 @@
-const { uuid } = require("uuidv4");
 const MaterialDao = require("../dao/material-dao");
-const Material = require("../model/material");
+const { Material } = require("../model/material");
 
 let materialDao = new MaterialDao();
 
@@ -52,7 +51,8 @@ const create = async (req, res) => {
 		typeof unit === "string" &&
 		unit.length < 10
 	) {
-		const material = { name, unit, id: uuid() };
+
+		const material = new Material(name, unit)
 
 		try {
 			let result = await materialDao.addMaterial(material);

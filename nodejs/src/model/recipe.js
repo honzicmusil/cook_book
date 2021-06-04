@@ -1,15 +1,5 @@
 const { uuid } = require("uuidv4");
 
-// class Recipe {
-//     constructor(name, code, description, preparationLength, materials) {
-//         this.id = uuid()
-//         this.name = name
-//         this.description = description
-//         this.preparationLength = preparationLength
-//         this.materials = materials
-//     }
-// }
-
 function Recipe(name,  description, preparationLength, materials,defaultPortions) {
 	this.id = uuid();
 	this.name = name;
@@ -17,6 +7,7 @@ function Recipe(name,  description, preparationLength, materials,defaultPortions
 	this.preparationLength = preparationLength;
 	this.materials = materials;
 	this.defaultPortions = defaultPortions;
+	return this
 }
 
 exports.Recipe = Recipe;
