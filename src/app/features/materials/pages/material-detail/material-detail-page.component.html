@@ -1,4 +1,4 @@
-<ral-title heading="MaterialDetail">
+<ral-title heading="Material Detail">
   <div class="p-grid p-grid--with-bottom">
     <div class="p-col-fixed">
       <button pButton label="Back" [routerLink]="['../']" class=""></button>
@@ -15,7 +15,7 @@
   <div *ngIf="materialDetailPageStore.data$ | async as data">
 
     <h3 class="h3">{{data.name}}</h3>
-    <span>{{data.unit}}</span>
+    <span>Unit: {{data.unit}}</span>
   </div>
 </p-card>
 

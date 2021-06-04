@@ -24,7 +24,7 @@ export class CreateMaterialPageComponent {
 			className: "p-col-12",
 			templateOptions: {
 				// translate: true,
-				placeholder: "Název materiálu",
+				placeholder: "Name of the material",
 			},
 		},
 		{
@@ -33,7 +33,7 @@ export class CreateMaterialPageComponent {
 			className: "p-col-12",
 			templateOptions: {
 				// translate: true,
-				placeholder: "Jednotka",
+				placeholder: "Unit",
 			},
 		},
 	];

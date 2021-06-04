@@ -117,7 +117,7 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 									message: {
 										severity: "info",
 										summary: "Deleted",
-										detail: `${data.name} was deleted`,
+										detail: `Recipe was deleted`,
 									},
 								})
 								//TODO: redirect to grid?

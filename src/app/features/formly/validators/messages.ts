@@ -60,5 +60,5 @@ export const maxValidationMessage = (
  * TODO: add description
  */
 export function requiredMessage(): string {
-  return 'Validation.FieldRequired';
+  return 'This field is required.';
 }

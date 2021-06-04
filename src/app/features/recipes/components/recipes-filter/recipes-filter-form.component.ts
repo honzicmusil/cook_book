@@ -26,7 +26,7 @@ export class RecipesFilterFormComponent {
 			className: "p-col-12",
 			templateOptions: {
 				// translate: true,,
-				label: "Název receptu",
+				label: "Name of the recipe",
 				placeholder: "Cola s rumem",
 				maxLength: 30,
 			},
@@ -37,7 +37,7 @@ export class RecipesFilterFormComponent {
 			className: "p-col-12",
 			templateOptions: {
 				translate: true,
-				label: "Ingredience",
+				label: "Ingredients",
 				options: this.materialService.getAll().pipe(
 					map((p) =>
 						p.itemList.map((item) => ({

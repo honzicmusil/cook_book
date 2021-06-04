@@ -32,7 +32,7 @@ export class CreateRecipePageComponent {
 			className: "p-col-12",
 			templateOptions: {
 				// translate: true,,
-				label: "Název receptu",
+				label: "Name of the recipe",
 				placeholder: "Cola s rumem",
 				required: true,
         maxLength: 30
@@ -44,7 +44,7 @@ export class CreateRecipePageComponent {
 			className: "p-col-12",
 			templateOptions: {
 				// translate: true,
-				label: "Popis přípravy a receptu",
+				label: "Preparation description",
 				placeholder: "Slejeme dohromdy",
 				required: true,
         maxLength: 256
@@ -56,7 +56,7 @@ export class CreateRecipePageComponent {
 			className: "p-col-12",
 			templateOptions: {
 				// translate: true,
-				label: "Počet porcí",
+				label: "Default number of portions",
 				placeholder: "1",
 				required: true,
 			},
@@ -67,7 +67,7 @@ export class CreateRecipePageComponent {
 			className: "p-col-12",
 			templateOptions: {
 				// translate: true,
-        label: "Doba na přípravu (min)",
+        label: "Preparation time in minutes",
 				placeholder: "v minutach",
 				required: true,
 			},
@@ -79,7 +79,7 @@ export class CreateRecipePageComponent {
 			defaultValue: [{}],
 			templateOptions: {
 				//TODO: Translate Add Text
-				addText: "Přidat ingredienci",
+				addText: "Add ingredient",
 				attributes: {
 					allowAdd: "true",
 					allowRemove: "true",
@@ -93,7 +93,7 @@ export class CreateRecipePageComponent {
 						className: "p-col-12",
 						templateOptions: {
 							translate: true,
-							label: "Ingredience",
+							label: "Ingredient",
 							required: true,
 							options: this.materialService.getAll().pipe(
 								map((p) =>
@@ -111,7 +111,7 @@ export class CreateRecipePageComponent {
 						className: "p-col-12",
 						templateOptions: {
 							translate: true,
-							label: "Množství",
+							label: "Amount",
 							required: true,
 						},
 					},

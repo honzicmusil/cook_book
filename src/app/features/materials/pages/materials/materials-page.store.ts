@@ -100,7 +100,7 @@ export class MaterialsPageStore extends ComponentStore<MaterialsPageState> {
 									message: {
 										severity: "info",
 										summary: "Deleted",
-										detail: `${data.name} was deleted`,
+										detail: `Material was deleted`,
 									},
 								})
 								//TODO: redirect to grid?
