@@ -23,6 +23,7 @@ export class EditMaterialFormComponent {
 			templateOptions: {
 				// translate: true,
 				placeholder: "Name of the material",
+        maxLength: 30
 			},
 		},
 		{
@@ -32,6 +33,7 @@ export class EditMaterialFormComponent {
 			templateOptions: {
 				// translate: true,
 				placeholder: "Unit",
+        maxLength: 10
 			},
 		},
 	];

@@ -52,6 +52,7 @@ const create = async (req, res) => {
 		req.body;
 
 	console.log(req.body);
+	//TODO: check if material exist
 	if (
 		name &&
 		typeof name === "string" &&
@@ -96,6 +97,8 @@ const create = async (req, res) => {
 const update = async (req, res) => {
 	let { id, name, description, preparationLength, materials, defaultPortions } =
 		req.body;
+
+	//TODO: check if material exist
 	if (
 		id &&
 		typeof id === "string" &&
@@ -150,7 +153,7 @@ const remove = async (req, res) => {
 		} catch (e) {
 			if (e.code === "FAILED_TO_DELETE_RECIPE") {
 				res.status(500).json({ error: e });
-			}  else if (e.code === "NOT_FOUND") {
+			} else if (e.code === "NOT_FOUND") {
 				res.status(404).json({ error: e });
 			} else {
 				res.status(500).json({ error: e });

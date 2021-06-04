@@ -25,6 +25,7 @@ export class CreateMaterialPageComponent {
 			templateOptions: {
 				// translate: true,
 				placeholder: "Name of the material",
+        maxLength: 30
 			},
 		},
 		{
@@ -34,6 +35,7 @@ export class CreateMaterialPageComponent {
 			templateOptions: {
 				// translate: true,
 				placeholder: "Unit",
+        maxLength: 10
 			},
 		},
 	];
