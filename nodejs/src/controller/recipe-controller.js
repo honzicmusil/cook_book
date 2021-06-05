@@ -1,4 +1,4 @@
-const recipeService = require("../service/recipe-service")
+const recipeService = require("../service/recipe-abl")
 const express = require("express")
 
 const router = express.Router()

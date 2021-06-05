@@ -3,7 +3,7 @@ const recipeController = require("./src/controller/recipe-controller");
 const materialController = require("./src/controller/material-controller");
 const express = require("express");
 const path = require("path");
-var cors = require('cors')
+let cors = require('cors');
 
 const app = express();
 app.use(cors())

@@ -1,4 +1,4 @@
-const materialService = require("../service/material-service")
+const materialService = require("../service/material-abl")
 const express = require("express")
 
 const router = express.Router()

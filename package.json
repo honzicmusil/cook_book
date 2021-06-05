@@ -12,10 +12,6 @@
   },
   "private": true,
   "dependencies": {
-    "ajv": "^8.2.0",
-    "busboy": "^0.3.1",
-    "express": "^4.17.1",
-    "uuidv4": "^6.2.8",
     "@angular/animations": "12.0.3",
     "@angular/cdk": "^11.2.0",
     "@angular/common": "12.0.3",
@@ -34,11 +30,16 @@
     "@ngrx/store": "12.0.0",
     "@ngrx/store-devtools": "12.0.0",
     "@ngx-formly/core": "^5.10.13",
+    "ajv": "^8.2.0",
+    "busboy": "^0.3.1",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
     "moment": "^2.29.1",
     "primeflex": "^2.0.0",
     "primeng": "^11.4.2",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
+    "uuidv4": "^6.2.8",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
