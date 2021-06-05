@@ -118,7 +118,7 @@ const remove = async (req, res) => {
 				res.status(500).json({ error: e });
 			} else if (e.code === "IN_USE_CANNOT_BE_DELETED") {
 				res.status(500).json({ error: e });
-			} else if (e.code === "NOT_FOUND") {
+			} else if (e.code === "MATERIAL_NOT_FOUND") {
 				res.status(404).json({ error: e });
 			} else {
 				res.status(500).json({ error: e });

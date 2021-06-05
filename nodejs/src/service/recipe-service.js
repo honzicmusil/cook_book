@@ -156,7 +156,7 @@ const remove = async (req, res) => {
 		} catch (e) {
 			if (e.code === "FAILED_TO_DELETE_RECIPE") {
 				res.status(500).json({ error: e });
-			} else if (e.code === "NOT_FOUND") {
+			} else if (e.code === "RECIPE_NOT_FOUND") {
 				res.status(404).json({ error: e });
 			} else {
 				res.status(500).json({ error: e });

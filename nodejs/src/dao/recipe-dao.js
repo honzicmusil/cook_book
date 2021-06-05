@@ -116,7 +116,7 @@ class RecipeDao {
 			const e = new Error(
 				`Failed to find recipe with id '${id}' in local storage.`
 			);
-			e.code = "NOT_FOUND";
+			e.code = "RECIPE_NOT_FOUND";
 			throw e;
 		}
 		delete recipes[id];
