@@ -95,7 +95,7 @@ export class MaterialDetailPageStore extends ComponentStore<MaterialDetailPageSt
 									message: {
 										severity: "success",
 										summary: "Saved",
-										detail: `${data.name} was created`,
+										detail: `${data.name} was updated`,
 									},
 								})
 							);

@@ -1,6 +1,6 @@
 {
-  "1": {
-    "id": "1",
+  "887b391b-d340-4165-bd49-202136312ea0": {
+    "id": "887b391b-d340-4165-bd49-202136312ea0",
     "name": "Luxusní kola s rumem",
     "description": "Popis receptu",
     "preparationLength": 20,
@@ -57,5 +57,18 @@
       }
     ],
     "defaultPortions": 2
+  },
+  "f59bc0a9-e3bf-4a61-b507-51a63748b90b": {
+    "id": "f59bc0a9-e3bf-4a61-b507-51a63748b90b",
+    "name": "ds",
+    "description": "ASD",
+    "preparationLength": 1,
+    "materials": [
+      {
+        "material": "fdda65b5-20a8-4793-a582-6973fd965b76",
+        "amount": 21
+      }
+    ],
+    "defaultPortions": 1
   }
 }

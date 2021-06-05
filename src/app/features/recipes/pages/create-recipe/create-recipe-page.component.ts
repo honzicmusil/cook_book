@@ -82,10 +82,6 @@ export class CreateRecipePageComponent {
 			templateOptions: {
 				//TODO: Translate Add Text
 				addText: "Add ingredient",
-
-        initialModel: {
-          uplatneni: [{}],
-        },
 				attributes: {
 					allowAdd: "true",
 					allowRemove: "true",

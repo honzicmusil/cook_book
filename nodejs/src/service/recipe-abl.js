@@ -112,7 +112,7 @@ const update = async (req, res) => {
 		};
 
 		try {
-			const allMaterial = materialDao.getMaterialList()
+			const allMaterial = await materialDao.getMaterialList()
 			if (recipe.materials.find((p) => !allMaterial.some(material => material.id === p.material))) {
 				res.status(400).json({
 					error: { code: "UNKNOWN_MATERIAL_FOR_RECIPE", message: `Cannot attach unknown material for recipe '${recipe.id}'` },
@@ -122,6 +122,7 @@ const update = async (req, res) => {
 				res.status(200).json(result);
 			}
 		} catch (e) {
+            console.log(e)
 			if (e.code === "FAILED_TO_GET_RECIPE") {
 				res.status(400).json(createErrorPayload(e));
 			} else if (e.code === "FAILED_TO_UPDATE_RECIPE") {
