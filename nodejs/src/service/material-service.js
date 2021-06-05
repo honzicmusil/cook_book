@@ -12,7 +12,12 @@ const list = async (req, res) => {
 				.status(200)
 				.json({ itemList: materialList, total: materialList.length });
 		} catch (e) {
-			res.status(500).json({ error: e });
+			res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 		}
 	} else {
 		res.status(400).json({
@@ -29,9 +34,19 @@ const get = async (req, res) => {
 			res.status(200).json(result);
 		} catch (e) {
 			if (e.code === "FAILED_TO_GET_MATERIAL") {
-				res.status(400).json({ error: e });
+				res.status(400).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			}
 		}
 	} else {
@@ -58,11 +73,26 @@ const create = async (req, res) => {
 			res.status(200).json(result);
 		} catch (e) {
 			if (e.code === "DUPLICATE_CODE") {
-				res.status(400).json({ error: e });
+				res.status(400).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else if (e.code === "FAILED_TO_STORE_MATERIAL") {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			}
 		}
 	} else {
@@ -91,11 +121,26 @@ const update = async (req, res) => {
 			res.status(200).json(result);
 		} catch (e) {
 			if (e.code === "FAILED_TO_GET_MATERIAL") {
-				res.status(400).json({ error: e });
+				res.status(400).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else if (e.code === "FAILED_TO_UPDATE_MATERIAL") {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			}
 		}
 	} else {
@@ -115,13 +160,33 @@ const remove = async (req, res) => {
 		} catch (e) {
             console.log(e)
 			if (e.code === "FAILED_TO_DELETE_MATERIAL") {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else if (e.code === "IN_USE_CANNOT_BE_DELETED") {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else if (e.code === "MATERIAL_NOT_FOUND") {
-				res.status(404).json({ error: e });
+				res.status(404).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			}
 		}
 	} else {

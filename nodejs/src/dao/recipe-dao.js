@@ -175,7 +175,7 @@ class RecipeDao {
 	_createException(message, code) {
 		const e = new Error(message);
 		e.code = code;
-		e.message = message;
+        console.log(e)
 		return e;
 	}
 }

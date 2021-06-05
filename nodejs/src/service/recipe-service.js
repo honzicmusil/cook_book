@@ -18,11 +18,16 @@ const list = async (req, res) => {
 
 			res.status(200).json({ itemList: recipeList, total: recipeList.length });
 		} catch (e) {
-			res.status(500).json({ error: e });
+			res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 		}
 	} else {
 		res.status(400).json({
-			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." },
 		});
 	}
 };
@@ -35,14 +40,24 @@ const get = async (req, res) => {
 			res.status(200).json(result);
 		} catch (e) {
 			if (e.code === "FAILED_TO_GET_RECIPE") {
-				res.status(400).json({ error: e });
+				res.status(400).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			}
 		}
 	} else {
 		res.status(400).json({
-			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." },
 		});
 	}
 };
@@ -83,16 +98,31 @@ const create = async (req, res) => {
 			res.status(200).json(result);
 		} catch (e) {
 			if (e.code === "DUPLICATE_CODE") {
-				res.status(400).json({ error: e });
+				res.status(400).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else if (e.code === "FAILED_TO_STORE_RECIPE") {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			}
 		}
 	} else {
 		res.status(400).json({
-			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." },
 		});
 	}
 };
@@ -132,16 +162,31 @@ const update = async (req, res) => {
 			res.status(200).json(result);
 		} catch (e) {
 			if (e.code === "FAILED_TO_GET_RECIPE") {
-				res.status(400).json({ error: e });
+				res.status(400).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else if (e.code === "FAILED_TO_UPDATE_RECIPE") {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			}
 		}
 	} else {
 		res.status(400).json({
-			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." },
 		});
 	}
 };
@@ -155,16 +200,31 @@ const remove = async (req, res) => {
 			res.status(200).json({});
 		} catch (e) {
 			if (e.code === "FAILED_TO_DELETE_RECIPE") {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else if (e.code === "RECIPE_NOT_FOUND") {
-				res.status(404).json({ error: e });
+				res.status(404).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			} else {
-				res.status(500).json({ error: e });
+				res.status(500).json({
+					error: {
+						...e,
+						message: e.message,
+					},
+				});
 			}
 		}
 	} else {
 		res.status(400).json({
-			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." },
 		});
 	}
 };
