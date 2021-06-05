@@ -32,7 +32,7 @@ class MaterialDao {
 		if (materials[id]) {
 			return materials[id];
 		} else {
-			throw createException(
+			throw await createException(
 				`Material with id '${id}' does not exist.`,
 				"FAILED_TO_GET_MATERIAL");
 		}
@@ -41,7 +41,7 @@ class MaterialDao {
 	async addMaterial(material) {
 		const materials = await this._loadAllMaterials();
 		if (this._isDuplicate(materials, material.id)) {
-			throw createException(
+			throw await createException(
 				`Material with id '${material.id}' already exists.`,
 				"DUPLICATE_CODE_MATERIAL");
 		}
@@ -50,7 +50,7 @@ class MaterialDao {
 			await wf(MATERIAL_STORAGE_PATH, JSON.stringify(materials, null, 2));
 			return material;
 		} catch (error) {
-			throw createException(
+			throw await createException(
 				`Failed to store material with id '${material.id}' to local storage.`,
 				"FAILED_TO_STORE_MATERIAL");
 		}
@@ -64,12 +64,12 @@ class MaterialDao {
 				await wf(MATERIAL_STORAGE_PATH, JSON.stringify(materials, null, 2));
 				return material;
 			} catch (error) {
-				throw createException(
+				throw await createException(
 					`Failed to update material with id '${material.id}' in local storage.`,
 					"FAILED_TO_UPDATE_MATERIAL");
 			}
 		} else {
-			throw createException(
+			throw await createException(
 				`Material with id '${material.id}' does not exist.`,
 				"FAILED_TO_GET_MATERIAL");
 		}
@@ -79,7 +79,7 @@ class MaterialDao {
 		const materials = await this._loadAllMaterials();
 
 		if (!materials[id]) {
-			throw createException(
+			throw await createException(
 				`Failed to find material with id '${id}' in local storage.`,
 				"MATERIAL_NOT_FOUND");
 		}
@@ -89,7 +89,7 @@ class MaterialDao {
 			await wf(MATERIAL_STORAGE_PATH, JSON.stringify(materials, null, 2));
 			return undefined;
 		} catch (error) {
-			throw createException(
+			throw await createException(
 				`Failed to delete material with id '${id}' in local storage.`,
 				"FAILED_TO_DELETE_MATERIAL");
 		}
@@ -104,7 +104,7 @@ class MaterialDao {
 				console.info("No storage found, initializing new one...");
 				materials = {};
 			} else {
-				throw createException(
+				throw await createException(
 					"Unable to read from storage. Wrong data format. " + MATERIAL_STORAGE_PATH,
 					"FAILED_TO_READ_STORAGE");
 			}

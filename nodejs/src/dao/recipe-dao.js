@@ -36,7 +36,7 @@ class RecipeDao {
 		if (recipes[id]) {
 			return recipes[id];
 		} else {
-			throw createException(
+			throw await createException(
 				`Recipe with id '${id}' does not exist.`,
 				"FAILED_TO_GET_RECIPE"
 			);
@@ -47,7 +47,7 @@ class RecipeDao {
 		const recipes = await this._loadAllRecipes();
 
 		if (this._isDuplicate(recipe, recipe.id)) {
-			throw createException(
+			throw await createException(
 				`Recipe with id '${recipe.id}' already exists.`,
 				"DUPLICATE_CODE"
 			);
@@ -58,7 +58,7 @@ class RecipeDao {
 			await wf(RECIPE_STORAGE_PATH, JSON.stringify(recipes, null, 2));
 			return recipe;
 		} catch (error) {
-			throw createException(
+			throw await createException(
 				`Failed to store recipe with id '${recipe.id}' to local storage.`,
 				"FAILED_TO_STORE_RECIPE"
 			);
@@ -74,13 +74,13 @@ class RecipeDao {
 				await wf(RECIPE_STORAGE_PATH, JSON.stringify(recipes, null, 2));
 				return recipe;
 			} catch (error) {
-				throw createException(
+				throw await createException(
 					`Failed to update recipe with id '${recipe.id}' in local storage.`,
 					"FAILED_TO_UPDATE_MATERIAL"
 				);
 			}
 		} else {
-			throw createException(
+			throw await createException(
 				`Recipe with id '${recipe.id}' does not exist.`,
 				"FAILED_TO_GET_RECIPE"
 			);
@@ -90,7 +90,7 @@ class RecipeDao {
 	async deleteRecipe(id) {
 		const recipes = await this._loadAllRecipes();
 		if (!recipes[id]) {
-			throw createException(
+			throw await createException(
 				`Failed to find recipe with id '${id}' in local storage.`,
 				"RECIPE_NOT_FOUND"
 			);
@@ -100,7 +100,7 @@ class RecipeDao {
 			await wf(RECIPE_STORAGE_PATH, JSON.stringify(recipes, null, 2));
 			return undefined;
 		} catch (error) {
-			throw createException(
+			throw await createException(
 				`Failed to delete recipe with id '${id}' in local storage.`,
 				"FAILED_TO_DELETE_RECIPE"
 			);
@@ -116,7 +116,7 @@ class RecipeDao {
 				console.info("No storage found, initializing new one...");
 				recipes = {};
 			} else {
-				throw createException(
+				throw await createException(
 					"Unable to read from storage. Wrong data format. " + RECIPE_STORAGE_PATH,
 					"FAILED_TO_READ_STORAGE"
 				);

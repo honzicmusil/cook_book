@@ -68,7 +68,7 @@ const create = async (req, res) => {
 
 		try {
 			const allMaterial = await materialDao.getMaterialList()
-			if (recipe.materials.find((p) => !allMaterial[p.material])) {
+			if (recipe.materials.find((p) => !!allMaterial[p.material])) {
 				res.status(400).json({
 					error: { code: "UNKNOWN_MATERIAL_FOR_RECIPE", message: `Cannot attach unknown material for recipe '${recipe.id}'` },
 				});
@@ -113,7 +113,7 @@ const update = async (req, res) => {
 
 		try {
 			const allMaterial = materialDao.getMaterialList()
-			if (recipe.materials.find((p) => !allMaterial[p.material])) {
+			if (recipe.materials.find((p) => !!allMaterial[p.material])) {
 				res.status(400).json({
 					error: { code: "UNKNOWN_MATERIAL_FOR_RECIPE", message: `Cannot attach unknown material for recipe '${recipe.id}'` },
 				});

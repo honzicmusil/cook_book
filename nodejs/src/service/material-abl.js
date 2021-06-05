@@ -100,22 +100,20 @@ const remove = async (req, res) => {
 		try {
 			const recipes = await recipeDao._loadAllRecipes()
 
-			let isMaterialUsed = false;
-
 			for (let recipe in recipes) {
 				console.log(recipes[recipe]);
 				if (recipes[recipe].materials.filter((p) => p.material === id).length > 0) {
 					res.status(400).json({
 						error: { code: "IN_USE_CANNOT_BE_DELETED", message: `Failed to delete material with id '${id}' because material is in used.` }
 					});
-					isMaterialUsed = true;
+					return;
 				}
 			}
 
-			if (!isMaterialUsed) {
-				await materialDao.deleteMaterial(id);
-				res.status(200).json({});
-			}
+
+			await materialDao.deleteMaterial(id);
+			res.status(200).json({});
+
 
 		} catch (e) {
             console.log(e)
