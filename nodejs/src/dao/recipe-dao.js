@@ -12,6 +12,13 @@ const DEFAULT_STORAGE_PATH = path.join(
 	"recipes.json"
 );
 
+const DEFAULT_MATERIALS_STORAGE_PATH = path.join(
+	__dirname,
+	"..",
+	"storage",
+	"materials.json"
+);
+
 class RecipeDao {
 	async getRecipeList(name, materials) {
 		const recipes = await this._loadAllRecipes();
@@ -38,16 +45,27 @@ class RecipeDao {
 		} else {
 			throw this._createException(
 				`Recipe with id '${id}' does not exist.`,
-				"FAILED_TO_GET_RECIPE");
+				"FAILED_TO_GET_RECIPE"
+			);
 		}
 	}
 
 	async addRecipe(recipe) {
 		const recipes = await this._loadAllRecipes();
+		const materials = await this._loadAllMaterials();
+
 		if (this._isDuplicate(recipe, recipe.id)) {
 			throw this._createException(
 				`Recipe with id '${recipe.id}' already exists.`,
-				"DUPLICATE_CODE");
+				"DUPLICATE_CODE"
+			);
+		}
+
+		if (recipe.materials.find((p) => !materials[p.material])) {
+			throw this._createException(
+				`Cannot attach unknow material for recipe '${recipe.id}'`,
+				"UNKNOWN_MATERIAL_FOR_RECIPE"
+			);
 		}
 
 		recipes[recipe.id] = recipe;
@@ -57,12 +75,22 @@ class RecipeDao {
 		} catch (error) {
 			throw this._createException(
 				`Failed to store recipe with id '${recipe.id}' to local storage.`,
-				"FAILED_TO_STORE_RECIPE");
+				"FAILED_TO_STORE_RECIPE"
+			);
 		}
 	}
 
 	async updateRecipe(recipe) {
 		const recipes = await this._loadAllRecipes();
+		const materials = await this._loadAllMaterials();
+
+		if (recipe.materials.find((p) => !materials[p.material])) {
+			throw this._createException(
+				`Cannot attach unknow material for recipe '${recipe.id}'`,
+				"UNKNOWN_MATERIAL_FOR_RECIPE"
+			);
+		}
+
 		if (recipes[recipe.id]) {
 			recipes[recipe.id] = recipe;
 			try {
@@ -71,12 +99,14 @@ class RecipeDao {
 			} catch (error) {
 				throw this._createException(
 					`Failed to update recipe with id '${recipe.id}' in local storage.`,
-					"FAILED_TO_UPDATE_MATERIAL");
+					"FAILED_TO_UPDATE_MATERIAL"
+				);
 			}
 		} else {
 			throw this._createException(
 				`Recipe with id '${recipe.id}' does not exist.`,
-				"FAILED_TO_GET_RECIPE");
+				"FAILED_TO_GET_RECIPE"
+			);
 		}
 	}
 
@@ -96,7 +126,8 @@ class RecipeDao {
 		} catch (error) {
 			throw this._createException(
 				`Failed to delete recipe with id '${id}' in local storage.`,
-				"FAILED_TO_DELETE_RECIPE");
+				"FAILED_TO_DELETE_RECIPE"
+			);
 		}
 	}
 
@@ -110,11 +141,31 @@ class RecipeDao {
 				recipes = {};
 			} else {
 				throw this._createException(
-					"Unable to read from storage. Wrong data format. " + DEFAULT_STORAGE_PATH,
-					"FAILED_TO_READ_STORAGE");
+					"Unable to read from storage. Wrong data format. " +
+						DEFAULT_STORAGE_PATH,
+					"FAILED_TO_READ_STORAGE"
+				);
 			}
 		}
 		return recipes;
+	}
+
+	async _loadAllMaterials() {
+		let materials;
+		try {
+			materials = JSON.parse(await rf(DEFAULT_MATERIALS_STORAGE_PATH));
+		} catch (e) {
+			if (e.code === "ENOENT") {
+				console.info("No storage found, initializing new one...");
+				materials = {};
+			} else {
+				throw new Error(
+					"Unable to read from storage. Wrong data format. " +
+						DEFAULT_STORAGE_PATH
+				);
+			}
+		}
+		return materials;
 	}
 
 	_isDuplicate(recipes, id) {
@@ -124,7 +175,7 @@ class RecipeDao {
 	_createException(message, code) {
 		const e = new Error(message);
 		e.code = code;
-		e.message = message
+		e.message = message;
 		return e;
 	}
 }

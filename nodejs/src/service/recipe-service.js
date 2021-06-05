@@ -63,6 +63,9 @@ const create = async (req, res) => {
 		preparationLength &&
 		typeof preparationLength === "number" &&
 		preparationLength > 0 &&
+		defaultPortions &&
+		typeof defaultPortions === "number" &&
+		defaultPortions > 0 &&
 		materials &&
 		Array.isArray(materials) &&
 		materials.length > 0
