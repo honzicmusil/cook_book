@@ -5,7 +5,7 @@ const path = require("path");
 const rf = fs.promises.readFile;
 const wf = fs.promises.writeFile;
 
-const DEFAULT_STORAGE_PATH = path.join(
+const DEFAULT_RECIPE_STORAGE_PATH = path.join(
 	__dirname,
 	"..",
 	"storage",
@@ -63,14 +63,14 @@ class RecipeDao {
 
 		if (recipe.materials.find((p) => !materials[p.material])) {
 			throw this._createException(
-				`Cannot attach unknow material for recipe '${recipe.id}'`,
+				`Cannot attach unknown material for recipe '${recipe.id}'`,
 				"UNKNOWN_MATERIAL_FOR_RECIPE"
 			);
 		}
 
 		recipes[recipe.id] = recipe;
 		try {
-			await wf(DEFAULT_STORAGE_PATH, JSON.stringify(recipes, null, 2));
+			await wf(DEFAULT_RECIPE_STORAGE_PATH, JSON.stringify(recipes, null, 2));
 			return recipe;
 		} catch (error) {
 			throw this._createException(
@@ -86,7 +86,7 @@ class RecipeDao {
 
 		if (recipe.materials.find((p) => !materials[p.material])) {
 			throw this._createException(
-				`Cannot attach unknow material for recipe '${recipe.id}'`,
+				`Cannot attach unknown material for recipe '${recipe.id}'`,
 				"UNKNOWN_MATERIAL_FOR_RECIPE"
 			);
 		}
@@ -94,7 +94,7 @@ class RecipeDao {
 		if (recipes[recipe.id]) {
 			recipes[recipe.id] = recipe;
 			try {
-				await wf(DEFAULT_STORAGE_PATH, JSON.stringify(recipes, null, 2));
+				await wf(DEFAULT_RECIPE_STORAGE_PATH, JSON.stringify(recipes, null, 2));
 				return recipe;
 			} catch (error) {
 				throw this._createException(
@@ -113,15 +113,14 @@ class RecipeDao {
 	async deleteRecipe(id) {
 		const recipes = await this._loadAllRecipes();
 		if (!recipes[id]) {
-			const e = new Error(
-				`Failed to find recipe with id '${id}' in local storage.`
+			throw this._createException(
+				`Failed to find recipe with id '${id}' in local storage.`,
+				"RECIPE_NOT_FOUND"
 			);
-			e.code = "RECIPE_NOT_FOUND";
-			throw e;
 		}
 		delete recipes[id];
 		try {
-			await wf(DEFAULT_STORAGE_PATH, JSON.stringify(recipes, null, 2));
+			await wf(DEFAULT_RECIPE_STORAGE_PATH, JSON.stringify(recipes, null, 2));
 			return undefined;
 		} catch (error) {
 			throw this._createException(
@@ -134,15 +133,14 @@ class RecipeDao {
 	async _loadAllRecipes() {
 		let recipes;
 		try {
-			recipes = JSON.parse(await rf(DEFAULT_STORAGE_PATH));
+			recipes = JSON.parse(await rf(DEFAULT_RECIPE_STORAGE_PATH));
 		} catch (e) {
 			if (e.code === "ENOENT") {
 				console.info("No storage found, initializing new one...");
 				recipes = {};
 			} else {
 				throw this._createException(
-					"Unable to read from storage. Wrong data format. " +
-						DEFAULT_STORAGE_PATH,
+					"Unable to read from storage. Wrong data format. " + DEFAULT_RECIPE_STORAGE_PATH,
 					"FAILED_TO_READ_STORAGE"
 				);
 			}
@@ -159,9 +157,9 @@ class RecipeDao {
 				console.info("No storage found, initializing new one...");
 				materials = {};
 			} else {
-				throw new Error(
-					"Unable to read from storage. Wrong data format. " +
-						DEFAULT_STORAGE_PATH
+				throw this._createException(
+					"Unable to read from storage. Wrong data format. " + DEFAULT_MATERIALS_STORAGE_PATH,
+					"FAILED_TO_READ_STORAGE"
 				);
 			}
 		}
