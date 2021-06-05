@@ -7,7 +7,7 @@ const list = async (req, res) => {
 	let { name, materials } = req.query;
 	// transform request
 	if (materials && !Array.isArray(materials)) materials = [materials];
-	if (name == "") name = undefined;
+	if (name === "") name = undefined;
 
 	if (
 		(!name || (name && typeof name === "string" && name.length < 30)) &&
@@ -22,7 +22,7 @@ const list = async (req, res) => {
 		}
 	} else {
 		res.status(400).json({
-			error: "Invalid dtoIn",
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
 		});
 	}
 };
@@ -42,7 +42,7 @@ const get = async (req, res) => {
 		}
 	} else {
 		res.status(400).json({
-			error: "Invalid dtoIn",
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
 		});
 	}
 };
@@ -89,7 +89,7 @@ const create = async (req, res) => {
 		}
 	} else {
 		res.status(400).json({
-			error: "Invalid dtoIn",
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
 		});
 	}
 };
@@ -138,7 +138,7 @@ const update = async (req, res) => {
 		}
 	} else {
 		res.status(400).json({
-			error: "Invalid dtoIn",
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
 		});
 	}
 };
@@ -161,7 +161,7 @@ const remove = async (req, res) => {
 		}
 	} else {
 		res.status(400).json({
-			error: "Invalid dtoIn",
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
 		});
 	}
 };

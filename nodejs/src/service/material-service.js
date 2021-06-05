@@ -5,7 +5,7 @@ let materialDao = new MaterialDao();
 
 const list = async (req, res) => {
 	let { name } = req.body;
-	if (!name || (name && typeof name === "string" && name.length == 30)) {
+	if (!name || (name && typeof name === "string" && name.length === 30)) {
 		try {
 			let materialList = await materialDao.getMaterialList(name);
 			res
@@ -16,14 +16,14 @@ const list = async (req, res) => {
 		}
 	} else {
 		res.status(400).json({
-			error: "Invalid dtoIn",
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
 		});
 	}
 };
 
 const get = async (req, res) => {
 	let { id } = req.query;
-	if (id && typeof id === "string" && id.length == 36) {
+	if (id && typeof id === "string" && id.length === 36) {
 		try {
 			let result = await materialDao.getMaterial(id);
 			res.status(200).json(result);
@@ -36,7 +36,7 @@ const get = async (req, res) => {
 		}
 	} else {
 		res.status(400).json({
-			error: "Invalid dtoIn",
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
 		});
 	}
 };
@@ -67,7 +67,7 @@ const create = async (req, res) => {
 		}
 	} else {
 		res.status(400).json({
-			error: "Invalid dtoIn",
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
 		});
 	}
 };
@@ -77,7 +77,7 @@ const update = async (req, res) => {
 	if (
 		id &&
 		typeof id === "string" &&
-		id.length == 36 &&
+		id.length === 36 &&
 		name &&
 		typeof name === "string" &&
 		name.length < 30 &&
@@ -100,7 +100,7 @@ const update = async (req, res) => {
 		}
 	} else {
 		res.status(400).json({
-			error: "Invalid dtoIn",
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
 		});
 	}
 };
@@ -108,7 +108,7 @@ const update = async (req, res) => {
 const remove = async (req, res) => {
 	let { id } = req.query;
 
-	if (id && typeof id === "string" && id.length == 36) {
+	if (id && typeof id === "string" && id.length === 36) {
 		try {
 			await materialDao.deleteMaterial(id);
 			res.status(200).json({});
@@ -126,7 +126,7 @@ const remove = async (req, res) => {
 		}
 	} else {
 		res.status(400).json({
-			error: "Invalid dtoIn",
+			error: { code: "INVALID_DTO_IN", message: "Invalid input object." }
 		});
 	}
 };

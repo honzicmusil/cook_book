@@ -36,18 +36,18 @@ class RecipeDao {
 		if (recipes[id]) {
 			return recipes[id];
 		} else {
-			const e = new Error(`Recipe with id '${id}' does not exist.`);
-			e.code = "FAILED_TO_GET_RECIPE";
-			throw e;
+			throw this._createException(
+				`Recipe with id '${id}' does not exist.`,
+				"FAILED_TO_GET_RECIPE");
 		}
 	}
 
 	async addRecipe(recipe) {
 		const recipes = await this._loadAllRecipes();
 		if (this._isDuplicate(recipe, recipe.id)) {
-			const e = new Error(`Recipe with id '${recipe.id}' already exists.`);
-			e.code = "DUPLICATE_CODE";
-			throw e;
+			throw this._createException(
+				`Recipe with id '${recipe.id}' already exists.`,
+				"DUPLICATE_CODE");
 		}
 
 		recipes[recipe.id] = recipe;
@@ -55,11 +55,9 @@ class RecipeDao {
 			await wf(DEFAULT_STORAGE_PATH, JSON.stringify(recipes, null, 2));
 			return recipe;
 		} catch (error) {
-			const e = new Error(
-				`Failed to store recipe with id '${recipe.id}' to local storage.`
-			);
-			e.code = "FAILED_TO_STORE_RECIPE";
-			throw e;
+			throw this._createException(
+				`Failed to store recipe with id '${recipe.id}' to local storage.`,
+				"FAILED_TO_STORE_RECIPE");
 		}
 	}
 
@@ -71,16 +69,14 @@ class RecipeDao {
 				await wf(DEFAULT_STORAGE_PATH, JSON.stringify(recipes, null, 2));
 				return recipe;
 			} catch (error) {
-				const e = new Error(
-					`Failed to update recipe with id '${recipe.id}' in local storage.`
-				);
-				e.code = "FAILED_TO_UPDATE_MATERIAL";
-				throw e;
+				throw this._createException(
+					`Failed to update recipe with id '${recipe.id}' in local storage.`,
+					"FAILED_TO_UPDATE_MATERIAL");
 			}
 		} else {
-			const e = new Error(`Recipe with id '${recipe.id}' does not exist.`);
-			e.code = "FAILED_TO_GET_RECIPE";
-			throw e;
+			throw this._createException(
+				`Recipe with id '${recipe.id}' does not exist.`,
+				"FAILED_TO_GET_RECIPE");
 		}
 	}
 
@@ -98,11 +94,9 @@ class RecipeDao {
 			await wf(DEFAULT_STORAGE_PATH, JSON.stringify(recipes, null, 2));
 			return undefined;
 		} catch (error) {
-			const e = new Error(
-				`Failed to delete recipe with id '${id}' in local storage.`
-			);
-			e.code = "FAILED_TO_DELETE_RECIPE";
-			throw e;
+			throw this._createException(
+				`Failed to delete recipe with id '${id}' in local storage.`,
+				"FAILED_TO_DELETE_RECIPE");
 		}
 	}
 
@@ -115,10 +109,9 @@ class RecipeDao {
 				console.info("No storage found, initializing new one...");
 				recipes = {};
 			} else {
-				throw new Error(
-					"Unable to read from storage. Wrong data format. " +
-						DEFAULT_STORAGE_PATH
-				);
+				throw this._createException(
+					"Unable to read from storage. Wrong data format. " + DEFAULT_STORAGE_PATH,
+					"FAILED_TO_READ_STORAGE");
 			}
 		}
 		return recipes;
@@ -126,6 +119,13 @@ class RecipeDao {
 
 	_isDuplicate(recipes, id) {
 		return !!recipes[id];
+	}
+
+	_createException(message, code) {
+		const e = new Error(message);
+		e.code = code;
+		e.message = message
+		return e;
 	}
 }
 

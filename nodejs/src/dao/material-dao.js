@@ -37,29 +37,27 @@ class MaterialDao {
 		if (materials[id]) {
 			return materials[id];
 		} else {
-			const e = new Error(`Material with id '${id}' does not exist.`);
-			e.code = "FAILED_TO_GET_MATERIAL";
-			throw e;
+			throw this._createException(
+				`Material with id '${id}' does not exist.`,
+				"FAILED_TO_GET_MATERIAL");
 		}
 	}
 
 	async addMaterial(material) {
 		const materials = await this._loadAllMaterials();
 		if (this._isDuplicate(materials, material.id)) {
-			const e = new Error(`Material with id '${material.id}' already exists.`);
-			e.code = "DUPLICATE_CODE";
-			throw e;
+			throw this._createException(
+				`Material with id '${material.id}' already exists.`,
+				"DUPLICATE_CODE_MATERIAL");
 		}
 		materials[material.id] = material;
 		try {
 			await wf(DEFAULT_STORAGE_PATH, JSON.stringify(materials, null, 2));
 			return material;
 		} catch (error) {
-			const e = new Error(
-				`Failed to store material with id '${material.id}' to local storage.`
-			);
-			e.code = "FAILED_TO_STORE_MATERIAL";
-			throw e;
+			throw this._createException(
+				`Failed to store material with id '${material.id}' to local storage.`,
+				"FAILED_TO_STORE_MATERIAL");
 		}
 	}
 
@@ -71,16 +69,14 @@ class MaterialDao {
 				await wf(DEFAULT_STORAGE_PATH, JSON.stringify(materials, null, 2));
 				return material;
 			} catch (error) {
-				const e = new Error(
-					`Failed to update material with id '${material.id}' in local storage.`
-				);
-				e.code = "FAILED_TO_UPDATE_MATERIAL";
-				throw e;
+				throw this._createException(
+					`Failed to update material with id '${material.id}' in local storage.`,
+					"FAILED_TO_UPDATE_MATERIAL");
 			}
 		} else {
-			const e = new Error(`Material with id '${material.id}' does not exist.`);
-			e.code = "FAILED_TO_GET_MATERIAL";
-			throw e;
+			throw this._createException(
+				`Material with id '${material.id}' does not exist.`,
+				"FAILED_TO_GET_MATERIAL");
 		}
 	}
 
@@ -89,22 +85,18 @@ class MaterialDao {
 		const recipes = await this._loadAllRecipes();
 
 		if (!materials[id]) {
-			const e = new Error(
-				`Failed to find material with id '${id}' in local storage.`
-			);
-			e.code = "NOT_FOUND";
-			throw e;
+			throw this._createException(
+				`Failed to find material with id '${id}' in local storage.`,
+				"MATERIAL_NOT_FOUND");
 		}
 		for (let recipe in recipes) {
 			console.log(recipes[recipe]);
 			if (
-				recipes[recipe].materials.filter((p) => p.material == id).length > 0
+				recipes[recipe].materials.filter((p) => p.material === id).length > 0
 			) {
-				const e = new Error(
-					`Failed to delete material with id '${id}' bacause material is in used.`
-				);
-				e.code = "IN_USE_CANNOT_BE_DELETED";
-				throw e;
+				throw this._createException(
+					`Failed to delete material with id '${id}' because material is in used.`,
+					"IN_USE_CANNOT_BE_DELETED");
 			}
 		}
 
@@ -113,11 +105,9 @@ class MaterialDao {
 			await wf(DEFAULT_STORAGE_PATH, JSON.stringify(materials, null, 2));
 			return undefined;
 		} catch (error) {
-			const e = new Error(
-				`Failed to delete material with id '${id}' in local storage.`
-			);
-			e.code = "FAILED_TO_DELETE_MATERIAL";
-			throw e;
+			throw this._createException(
+				`Failed to delete material with id '${id}' in local storage.`,
+				"FAILED_TO_DELETE_MATERIAL");
 		}
 	}
 
@@ -130,10 +120,9 @@ class MaterialDao {
 				console.info("No storage found, initializing new one...");
 				materials = {};
 			} else {
-				throw new Error(
-					"Unable to read from storage. Wrong data format. " +
-						DEFAULT_STORAGE_PATH
-				);
+				throw this._createException(
+					"Unable to read from storage. Wrong data format. " + DEFAULT_STORAGE_PATH,
+					"FAILED_TO_READ_STORAGE");
 			}
 		}
 		return materials;
@@ -148,10 +137,9 @@ class MaterialDao {
 				console.info("No storage found, initializing new one...");
 				recipes = {};
 			} else {
-				throw new Error(
-					"Unable to read from storage. Wrong data format. " +
-						DEFAULT_STORAGE_PATH
-				);
+				throw this._createException(
+					"Unable to read from storage. Wrong data format. " + DEFAULT_STORAGE_PATH,
+					"FAILED_TO_READ_STORAGE");
 			}
 		}
 		return recipes;
@@ -159,6 +147,13 @@ class MaterialDao {
 
 	_isDuplicate(materials, id) {
 		return !!materials[id];
+	}
+
+	_createException(message, code) {
+		const e = new Error(message);
+		e.code = code;
+		e.message = message
+		return e;
 	}
 }
 
