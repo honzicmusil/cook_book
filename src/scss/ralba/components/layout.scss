@@ -48,7 +48,7 @@
     border-right-color: var(--surface-d);
     display: flex;
     flex-direction: column;
-    @include bar-height(padding-top, -1px);
+    @include bar-height(padding-top, 11px);
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;

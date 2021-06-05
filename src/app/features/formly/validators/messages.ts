@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AbstractControl } from '@angular/forms';
+import { AbstractControl } from "@angular/forms";
 // import { translate } from '@ngneat/transloco';
-import { FormlyFieldConfig } from '@ngx-formly/core';
+import { FormlyFieldConfig } from "@ngx-formly/core";
 
 // TODO: transalte - add right translate keys
 
@@ -9,56 +9,56 @@ import { FormlyFieldConfig } from '@ngx-formly/core';
  * TODO: add description
  */
 export function requiredTrue(control: AbstractControl) {
-  if (control.value === true) {
-    return null;
-  }
-  return {
-    fieldMatch: {
-      message: `Validation.YouMustAggree')}`,
-    },
-  };
+	if (control.value === true) {
+		return null;
+	}
+	return {
+		fieldMatch: {
+			message: `You Must Aggree`,
+		},
+	};
 }
 
 /**
  * TODO: add description
  */
 export function minlengthValidationMessage(
-  error: any,
-  field: FormlyFieldConfig
+	error: any,
+	field: FormlyFieldConfig
 ) {
-  return `Validation.LeastCharacters{0}`;
+	return `Maximum allowed length ${field?.templateOptions?.minLength}`;
 }
 
 /**
  * TODO: add description
  */
 export function maxlengthValidationMessage(
-  error: any,
-  field: FormlyFieldConfig
+	error: any,
+	field: FormlyFieldConfig
 ) {
-  return `Validation.LeastValue{0}`;
+	return `Maximum allowed length ${field?.templateOptions?.maxLength}`;
 }
 
 /**
  * TODO: add description
  */
 export function minValidationMessage(error: any, field: FormlyFieldConfig) {
-  return `Validation.MostValue{0}`;
+	return `Minimum allowed value ${field?.templateOptions?.min}`;
 }
 
 /**
  * TODO: add description
  */
 export const maxValidationMessage = (
-  error: any,
-  field: FormlyFieldConfig
+	error: any,
+	field: FormlyFieldConfig
 ): string => {
-  return `Validation.LessValue{0}`;
+	return `Maximum allowed value ${field?.templateOptions?.max}`;
 };
 
 /**
  * TODO: add description
  */
 export function requiredMessage(): string {
-  return 'This field is required.';
+	return "This field is required.";
 }

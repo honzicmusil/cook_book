@@ -45,7 +45,7 @@ export class CreateRecipePageComponent {
 			templateOptions: {
 				// translate: true,
 				label: "Preparation description",
-				placeholder: "Slejeme dohromdy",
+				placeholder: "Preparation text",
 				required: true,
         maxLength: 256
 			},
@@ -54,22 +54,26 @@ export class CreateRecipePageComponent {
 			key: "defaultPortions",
 			type: "number",
 			className: "p-col-12",
+      defaultValue: 1,
 			templateOptions: {
 				// translate: true,
 				label: "Default number of portions",
 				placeholder: "1",
 				required: true,
+        min: 1
 			},
 		},
 		{
 			key: "preparationLength",
 			type: "number",
 			className: "p-col-12",
+      defaultValue: 1,
 			templateOptions: {
 				// translate: true,
         label: "Preparation time in minutes",
 				placeholder: "v minutach",
 				required: true,
+        min: 1
 			},
 		},
 		{
@@ -83,6 +87,7 @@ export class CreateRecipePageComponent {
 				attributes: {
 					allowAdd: "true",
 					allowRemove: "true",
+
 				},
 			},
 			fieldArray: {
@@ -113,6 +118,7 @@ export class CreateRecipePageComponent {
 							translate: true,
 							label: "Amount",
 							required: true,
+              min: 1
 						},
 					},
 				],

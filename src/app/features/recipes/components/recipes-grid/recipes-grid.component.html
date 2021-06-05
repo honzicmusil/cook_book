@@ -1,7 +1,6 @@
-<!-- [paginator]="true"  -->
-<!-- [rows]="gridState.rows || 8" [first]="gridState.first || 0"
-  [totalRecords]="totalRecords" -->
-<p-table [value]="data" (onLazyLoad)="onLazyLoad($event)" styleClass="p-datatable-striped"
+
+<p-table [value]="data" [lazy]="true" 
+ (onLazyLoad)="onLazyLoad($event)" styleClass="p-datatable-striped"
   [rowsPerPageOptions]="rowsPerPageOptions" [loading]="loading">
   <ng-template pTemplate="header">
     <tr>
