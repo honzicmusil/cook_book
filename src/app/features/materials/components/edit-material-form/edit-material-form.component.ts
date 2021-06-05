@@ -21,9 +21,10 @@ export class EditMaterialFormComponent {
 			type: "input",
 			className: "p-col-12",
 			templateOptions: {
-				// translate: true,
-				placeholder: "Name of the material",
-        maxLength: 30
+        label: "Name of the material",
+				placeholder: "Cola",
+				maxLength: 30,
+				required: true,
 			},
 		},
 		{
@@ -31,9 +32,11 @@ export class EditMaterialFormComponent {
 			type: "input",
 			className: "p-col-12",
 			templateOptions: {
-				// translate: true,
-				placeholder: "Unit",
-        maxLength: 10
+
+        label: "Unit",
+				placeholder: "ml",
+				maxLength: 10,
+				required: true,
 			},
 		},
 	];

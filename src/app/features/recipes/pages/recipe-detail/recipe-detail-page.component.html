@@ -15,18 +15,32 @@
 <div *ngIf="recipeDetailPageStore.editNonMode$ | async">
 
   <div class="p-grid p-grid--with-bottom">
-    <div class="p-col-12 p-md-8">
+    <div class="p-col-12 p-lg-8">
       <p-card *ngIf="combineddata$ | async as data">
-        <h3 class="h3">{{data.name}}</h3>
+        <h2 class="h2">{{data.name}}</h2>
+        <div class="p-grid p-grid--with-bottom">
+          <div class="p-col-fixed">
+            <p pTooltip="Default number of portions" tooltipPosition="top">
+              <i class="fal fa-glass-cheers"></i>
+              {{data.defaultPortions}} porce
+            </p>
+          </div>
+          <div class="p-col-fixed">
+            <p pTooltip="Preparation time" tooltipPosition="top">
+              <i class="fal fa-stopwatch"></i>
+              {{data.defaultPortions}} min
+            </p>
+          </div>
+        </div>
 
-        <p><mark>Default number of portions:</mark> {{data.defaultPortions}} porce</p>
-        <p><mark>Preparation time:</mark> {{data.defaultPortions}} min</p>
+        <h3 class="h3">
+          Drink description
+        </h3>
         <p>{{data.description}}</p>
-        <h4 class="h4">
-
+        <h3 class="h3 ingredience">
           Ingredience list for {{model.defaultPortions}} portions
-        </h4>
-        <ul class="list" style="padding-left: 20px;">
+        </h3>
+        <ul class="list ingrediens-grid">
           <li *ngFor="let item of data.materials">
             <span>
               {{item.material.name}}
@@ -42,7 +56,7 @@
         </ul>
       </p-card>
     </div>
-    <div class="p-col-12 p-md-4">
+    <div class="p-col-12 p-lg-4">
       <p-card>
         <h3 class="h3">How many portions do you want?</h3>
         <form [formGroup]="form" (ngSubmit)="onFormSubmit(model)">

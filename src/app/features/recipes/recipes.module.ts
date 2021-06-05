@@ -12,6 +12,7 @@ import { TitleModule } from "../base-ui";
 import { RecipesGridModule } from "./components/recipes-grid";
 import { SidebarModule } from "primeng/sidebar";
 import { RECIPES_COMPONENTS } from "./components";
+import {TooltipModule} from 'primeng/tooltip';
 @NgModule({
 	imports: [
 		CommonModule,
@@ -26,6 +27,7 @@ import { RECIPES_COMPONENTS } from "./components";
 		RecipesRoutingModule,
 		RecipesGridModule,
 		SidebarModule,
+    TooltipModule
 	],
 	exports: [],
 	declarations: [...RECIPES_PAGES, ...RECIPES_COMPONENTS],

@@ -21,7 +21,7 @@ export class EditRecipeFormComponent {
 	};
 	options: FormlyFormOptions = {};
 	fields: FormlyFieldConfig[] = [
-    {
+		{
 			key: "name",
 			type: "input",
 			className: "p-col-12",
@@ -30,7 +30,7 @@ export class EditRecipeFormComponent {
 				label: "Name of the recipe",
 				placeholder: "Cola s rumem",
 				required: true,
-        maxLength: 30
+				maxLength: 30,
 			},
 		},
 		{
@@ -40,46 +40,57 @@ export class EditRecipeFormComponent {
 			templateOptions: {
 				// translate: true,
 				label: "Preparation description",
-				placeholder: "Slejeme dohromdy",
+				placeholder: "Preparation text",
 				required: true,
-        maxLength: 256
+				maxLength: 256,
 			},
 		},
 		{
 			key: "defaultPortions",
 			type: "number",
 			className: "p-col-12",
+			defaultValue: 1,
 			templateOptions: {
 				// translate: true,
 				label: "Default number of portions",
 				placeholder: "1",
 				required: true,
+				min: 1,
 			},
 		},
 		{
 			key: "preparationLength",
 			type: "number",
 			className: "p-col-12",
+			defaultValue: 1,
 			templateOptions: {
 				// translate: true,
 				label: "Preparation time in minutes",
 				placeholder: "v minutach",
 				required: true,
+				min: 1,
 			},
 		},
 		{
 			key: "materials",
 			type: "repeat",
 			className: "p-col-12",
-			defaultValue: [{}],
 			templateOptions: {
 				//TODO: Translate Add Text
 				addText: "Add ingredient",
+
+        initialModel: {
+          uplatneni: [{}],
+        },
 				attributes: {
 					allowAdd: "true",
 					allowRemove: "true",
 				},
+
 			},
+      validators: {
+        validation: [{ name: 'nullArray' }],
+      },
 			fieldArray: {
 				fieldGroup: [
 					{
@@ -90,7 +101,7 @@ export class EditRecipeFormComponent {
 							translate: true,
 							label: "Ingredient",
 							required: true,
-              options: this.materialService.getAll().pipe(
+							options: this.materialService.getAll().pipe(
 								map((p) =>
 									p.itemList.map((item) => ({
 										label: item.name + "(" + item.unit + ")",
@@ -108,6 +119,7 @@ export class EditRecipeFormComponent {
 							translate: true,
 							label: "Amount",
 							required: true,
+							min: 1,
 						},
 					},
 				],
