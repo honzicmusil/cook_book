@@ -1,33 +1,22 @@
-<div
-  *ngFor="let field of field.fieldGroup; let i = index; trackBy: byFieldIndex"
-  class="p-grid repeat-box"
->
+<div *ngFor="let field of field.fieldGroup; let i = index; trackBy: byFieldIndex" class="p-grid repeat-box">
   <formly-field class="p-col" [field]="field"></formly-field>
   <div class="p-col-fixed {{ to.attributes?.removeClass }}" *ngIf="allowRemove">
     <!-- <div class="fake-label"> -->
-    <p-button
-      class="p-button-danger"
-      type="button"
-      (click)="remove(i)"
-      [title]="to.removeTextTitle"
-      icon="fal fa-times"
-    >
+    <p-button class="p-button-danger" type="button" (click)="remove(i)" [title]="to.removeTextTitle"
+      icon="fal fa-times">
     </p-button>
     <!-- </div> -->
   </div>
 </div>
-<div class="ui-messages-error" *ngIf="showError">
-  <div class="p-grid" *ngIf="allowAdd">
-    <div class="p-col">
-      <formly-validation-message [field]="field"></formly-validation-message>
-    </div>
+
+<div class="p-grid" *ngIf="showError">
+  <div class="p-col">
+    <formly-validation-message [field]="field" class="p-error"></formly-validation-message>
+
   </div>
 </div>
 <div class="p-grid" *ngIf="allowAdd">
   <div class="p-col">
-    <p-button
-      [label]="to.addText"
-      (click)="add(undefined, to.initialModel)"
-    ></p-button>
+    <p-button [label]="to.addText" (click)="add(undefined, to.initialModel)"></p-button>
   </div>
 </div>

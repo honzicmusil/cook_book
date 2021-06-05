@@ -16,6 +16,7 @@ import { LazyLoadEvent } from "primeng/api";
 import { ToastActions } from "src/app/features/toasts";
 import { Material } from "src/app/features/models";
 import { MaterialService } from "src/app/features/api-services/meterials.service";
+import { httpError } from "src/app/features/helper";
 
 export interface MaterialsPageState {
 	data: Material[];
@@ -71,16 +72,11 @@ export class MaterialsPageStore extends ComponentStore<MaterialsPageState> {
 			exhaustMap(() =>
 				this.service.getAll().pipe(
 					map((data) => {
-						if (data.error) throw data.error;
+						if (data.error) throw data;
 						else if (data.itemList) this.updateData(data.itemList);
 					}),
 					tap(() => this.requestFinished()),
-					catchError((p) =>
-						this.httpError(
-							(p.hasOwnProperty("error") && p.error) ||
-								"HTTP error Connection error"
-						)
-					)
+					catchError((p) => httpError(this.store$, p))
 				)
 			)
 		);
@@ -92,7 +88,7 @@ export class MaterialsPageStore extends ComponentStore<MaterialsPageState> {
 			exhaustMap((p) =>
 				this.service.delete(p).pipe(
 					map((data) => {
-						if (data.error) throw data.error;
+						if (data.error) throw data;
 						else if (!data.error) {
 							this.store$.dispatch(
 								ToastActions.showToast({
@@ -102,58 +98,15 @@ export class MaterialsPageStore extends ComponentStore<MaterialsPageState> {
 										detail: `Material was deleted`,
 									},
 								})
-								//TODO: redirect to grid?
 							);
 						}
 					}),
 
 					tap(() => this.requestFinished()),
 					tap(() => this.fetchData()),
-					catchError((p) =>
-						this.httpError(
-							(p.hasOwnProperty("error") && p.error) ||
-								"HTTP error Connection error"
-						)
-					)
+					catchError((p) => httpError(this.store$, p))
 				)
 			)
 		);
 	});
-
-	// readonly fetchData = this.effect((input: Observable<never>) => {
-	//   return input.pipe(
-	//     // withLatestFrom(
-	//     //   this.store$.pipe(select(selectRouteParam('id')))
-	//     // ),
-	//     tap(() => this.requesting()),
-	//     exhaustMap(([, materialId]) =>
-	//       this.materialService.getMeterials().pipe(
-	//         map(({ data, errors }) => {
-	//           this.commonError(data, errors);
-	//           if (data.company.project && data.company.project.task)
-	//             this.updateData(data.company.project?.task.clientSolvers);
-	//         }),
-	//         tap(() => this.gridStore$.requestFinished()),
-	//         catchError((p) => this.httpError(p))
-	//       )
-	//     )
-	//   );
-	// });
-
-	httpError(p: any) {
-		// Obecnej toad na HTTP error Connection error
-		console.log(p);
-		let message = p;
-		if (p && p.error && p.error.code) message = p.error.code;
-		this.store$.dispatch(
-			ToastActions.showToast({
-				message: {
-					severity: "error",
-					summary: "Server Error",
-					detail: message,
-				},
-			})
-		);
-		return of({});
-	}
 }

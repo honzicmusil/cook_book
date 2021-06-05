@@ -12,10 +12,9 @@ import { CreateRecipePageStore } from "./create-recipe-page.store";
 	selector: "cook-book-create-recipe-page",
 	templateUrl: "create-recipe-page.component.html",
 	styleUrls: ["./create-recipe-page.component.scss"],
-  providers: [CreateRecipePageStore]
+	providers: [CreateRecipePageStore],
 })
 export class CreateRecipePageComponent {
-
 	form = new FormGroup({});
 	model: CreateRecipeFormType = {
 		name: "",
@@ -35,7 +34,7 @@ export class CreateRecipePageComponent {
 				label: "Name of the recipe",
 				placeholder: "Cola s rumem",
 				required: true,
-        maxLength: 30
+				maxLength: 30,
 			},
 		},
 		{
@@ -47,49 +46,54 @@ export class CreateRecipePageComponent {
 				label: "Preparation description",
 				placeholder: "Preparation text",
 				required: true,
-        maxLength: 256
+				maxLength: 256,
 			},
 		},
 		{
 			key: "defaultPortions",
 			type: "number",
 			className: "p-col-12",
-      defaultValue: 1,
+			defaultValue: 1,
 			templateOptions: {
 				// translate: true,
 				label: "Default number of portions",
 				placeholder: "1",
 				required: true,
-        min: 1
+				min: 1,
 			},
 		},
 		{
 			key: "preparationLength",
 			type: "number",
 			className: "p-col-12",
-      defaultValue: 1,
+			defaultValue: 1,
 			templateOptions: {
 				// translate: true,
-        label: "Preparation time in minutes",
+				label: "Preparation time in minutes",
 				placeholder: "v minutach",
 				required: true,
-        min: 1
+				min: 1,
 			},
 		},
 		{
 			key: "materials",
 			type: "repeat",
 			className: "p-col-12",
-			defaultValue: [{}],
 			templateOptions: {
 				//TODO: Translate Add Text
 				addText: "Add ingredient",
+        initialModel: {
+          uplatneni: [{}],
+        },
 				attributes: {
 					allowAdd: "true",
 					allowRemove: "true",
-
 				},
+
 			},
+      validators: {
+        validation: [{ name: 'nullArray' }],
+      },
 			fieldArray: {
 				fieldGroup: [
 					{
@@ -118,20 +122,22 @@ export class CreateRecipePageComponent {
 							translate: true,
 							label: "Amount",
 							required: true,
-              min: 1
+							min: 1,
 						},
 					},
 				],
 			},
 		},
 	];
-	constructor(private materialService: MaterialService, public createRecipePageStore: CreateRecipePageStore) {}
-
+	constructor(
+		private materialService: MaterialService,
+		public createRecipePageStore: CreateRecipePageStore
+	) {}
 
 	onFormSubmit(model: CreateRecipeFormType) {
 		console.log(model);
 		if (this.form.valid) {
-      console.log(model);
+			console.log(model);
 			this.createRecipePageStore.postData(
 				JSON.parse(JSON.stringify(model)) as CreateRecipeFormType
 			);

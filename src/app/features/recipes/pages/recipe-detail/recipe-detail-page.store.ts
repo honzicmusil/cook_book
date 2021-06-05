@@ -16,6 +16,7 @@ import { ToastActions } from "src/app/features/toasts";
 import { Material, Recipe } from "src/app/features/models";
 import { RecipesService } from "src/app/features/api-services/recipes.service";
 import { MaterialService } from "src/app/features/api-services/meterials.service";
+import { httpError } from "src/app/features/helper";
 
 export interface RecipeDetailPageState {
 	data: Recipe | undefined | null;
@@ -104,12 +105,7 @@ export class RecipeDetailPageStore extends ComponentStore<RecipeDetailPageState>
 						else if (data.itemList) this.updateMaterialData(data.itemList);
 					}),
 					tap(() => this.requestFinished()),
-					catchError((p) =>
-						this.httpError(
-							(p.hasOwnProperty("error") && p.error) ||
-								"HTTP error Connection error"
-						)
-					)
+					catchError((p) => httpError(this.store$, p))
 				)
 			)
 		);
@@ -128,12 +124,7 @@ export class RecipeDetailPageStore extends ComponentStore<RecipeDetailPageState>
 						}
 					}),
 					tap(() => this.requestFinished()),
-					catchError((p) =>
-						this.httpError(
-							(p.hasOwnProperty("error") && p.error) ||
-								"HTTP error Connection error"
-						)
-					)
+					catchError((p) => httpError(this.store$, p))
 				)
 			)
 		);
@@ -145,7 +136,7 @@ export class RecipeDetailPageStore extends ComponentStore<RecipeDetailPageState>
 			exhaustMap((p) =>
 				this.service.put(p).pipe(
 					map((data) => {
-						if (data.error) throw data && data.error.code;
+						if (data.error) throw data;
 						else if (!data.error) {
 							this.store$.dispatch(
 								ToastActions.showToast({
@@ -160,28 +151,9 @@ export class RecipeDetailPageStore extends ComponentStore<RecipeDetailPageState>
 						}
 					}),
 					tap(() => this.requestFinished()),
-					catchError((p) =>
-						this.httpError(
-							(p.hasOwnProperty("error") && p.error) ||
-								"HTTP error Connection error"
-						)
-					)
+					catchError((p) => httpError(this.store$, p))
 				)
 			)
 		);
 	});
-
-	httpError(p: string) {
-		// Obecnej toad na HTTP error Connection error
-		this.store$.dispatch(
-			ToastActions.showToast({
-				message: {
-					severity: "error",
-					summary: "Server Error",
-					detail: p,
-				},
-			})
-		);
-		return of({});
-	}
 }

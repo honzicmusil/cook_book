@@ -16,6 +16,7 @@ import { selectRouteParam } from "src/app/root.state";
 import { ToastActions } from "src/app/features/toasts";
 import { Material } from "src/app/features/models";
 import { MaterialService } from "src/app/features/api-services/meterials.service";
+import { httpError } from "src/app/features/helper";
 
 export interface MaterialDetailPageState {
 	data: Material | undefined | null;
@@ -40,7 +41,7 @@ export class MaterialDetailPageStore extends ComponentStore<MaterialDetailPageSt
 
 	readonly data$ = this.select((state) => state.data);
 	readonly editMode$ = this.select((state) => state.editMode);
-	readonly editNonMode$ = this.select((state) => !(state.editMode));
+	readonly editNonMode$ = this.select((state) => !state.editMode);
 
 	public readonly requesting = this.updater((state) => ({
 		...state,
@@ -75,12 +76,7 @@ export class MaterialDetailPageStore extends ComponentStore<MaterialDetailPageSt
 						}
 					}),
 					tap(() => this.requestFinished()),
-					catchError((p) =>
-						this.httpError(
-							(p.hasOwnProperty("error") && p.error) ||
-								"HTTP error Connection error"
-						)
-					)
+					catchError((p) => httpError(this.store$, p))
 				)
 			)
 		);
@@ -102,33 +98,14 @@ export class MaterialDetailPageStore extends ComponentStore<MaterialDetailPageSt
 										detail: `${data.name} was created`,
 									},
 								})
-                );
-              this.updateData(data)
+							);
+							this.updateData(data);
 						}
 					}),
 					tap(() => this.requestFinished()),
-					catchError((p) =>
-						this.httpError(
-							(p.hasOwnProperty("error") && p.error) ||
-								"HTTP error Connection error"
-						)
-					)
+					catchError((p) => httpError(this.store$, p))
 				)
 			)
 		);
 	});
-
-	httpError(p: string) {
-		// Obecnej toad na HTTP error Connection error
-		this.store$.dispatch(
-			ToastActions.showToast({
-				message: {
-					severity: "error",
-					summary: "Server Error",
-					detail: p,
-				},
-			})
-		);
-		return of({});
-	}
 }

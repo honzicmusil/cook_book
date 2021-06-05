@@ -16,12 +16,13 @@ import { ToastActions } from "src/app/features/toasts";
 import { Recipe } from "src/app/features/models";
 import { RecipesService } from "src/app/features/api-services/recipes.service";
 import { RecipesFilterFormType } from "../../components/recipes-filter/recipes-filter-form.tyle";
+import { httpError } from "src/app/features/helper";
 
 export interface RecipesPageState {
 	data: Recipe[];
 	totalCount: number;
 	loading: boolean;
-	filter:RecipesFilterFormType
+	filter: RecipesFilterFormType;
 }
 
 @Injectable()
@@ -32,9 +33,9 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 			totalCount: 10,
 			loading: true,
 			filter: {
-        // name: "cola"
-        // materials: ["d1c665d2-d945-415f-9e9a-d2d42132a897"]
-      },
+				// name: "cola"
+				// materials: ["d1c665d2-d945-415f-9e9a-d2d42132a897"]
+			},
 		});
 	}
 
@@ -61,25 +62,26 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 		data: input,
 	}));
 
-	private readonly _updateFilter = this.updater((state, filter: RecipesFilterFormType) => ({
-		...state,
-		filter,
-	}));
+	private readonly _updateFilter = this.updater(
+		(state, filter: RecipesFilterFormType) => ({
+			...state,
+			filter,
+		})
+	);
 
 	readonly onLazyLoad = this.effect((input: Observable<LazyLoadEvent>) => {
-		return input.pipe(
-
-			tap(() => this.fetchData())
-		);
+		return input.pipe(tap(() => this.fetchData()));
 	});
 
-	readonly updateFitler = this.effect((input: Observable<RecipesFilterFormType>) => {
-		return input.pipe(
-			tap((p) => console.log(p)),
-			tap((p) => this._updateFilter(p)),
-			tap(() => this.fetchData())
-		);
-	});
+	readonly updateFitler = this.effect(
+		(input: Observable<RecipesFilterFormType>) => {
+			return input.pipe(
+				tap((p) => console.log(p)),
+				tap((p) => this._updateFilter(p)),
+				tap(() => this.fetchData())
+			);
+		}
+	);
 
 	readonly fetchData = this.effect((input: Observable<never>) => {
 		return input.pipe(
@@ -93,12 +95,7 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 						else if (data.itemList) this.updateData(data.itemList);
 					}),
 					tap(() => this.requestFinished()),
-					catchError((p) =>
-						this.httpError(
-							(p.hasOwnProperty("error") && p.error) ||
-								"HTTP error Connection error"
-						)
-					)
+					catchError((p) => httpError(this.store$, p))
 				)
 			)
 		);
@@ -126,28 +123,9 @@ export class RecipesPageStore extends ComponentStore<RecipesPageState> {
 					}),
 					tap(() => this.requestFinished()),
 					tap(() => this.fetchData()),
-					catchError((p) =>
-						this.httpError(
-							(p.hasOwnProperty("error") && p.error) ||
-								"HTTP error Connection error"
-						)
-					)
+					catchError((p) => httpError(this.store$, p))
 				)
 			)
 		);
 	});
-
-	httpError(p: string) {
-		// Obecnej toad na HTTP error Connection error
-		this.store$.dispatch(
-			ToastActions.showToast({
-				message: {
-					severity: "error",
-					summary: "Server Error",
-					detail: p,
-				},
-			})
-		);
-		return of({});
-	}
 }

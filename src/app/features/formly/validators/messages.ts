@@ -26,7 +26,7 @@ export function minlengthValidationMessage(
 	error: any,
 	field: FormlyFieldConfig
 ) {
-	return `Maximum allowed length ${field?.templateOptions?.minLength}`;
+	return `Minimum allowed length ${field?.templateOptions?.minLength}`;
 }
 
 /**
@@ -61,4 +61,17 @@ export const maxValidationMessage = (
  */
 export function requiredMessage(): string {
 	return "This field is required.";
+}
+
+export function validateNullArray(control: AbstractControl) {
+	const items = control.value as any[];
+	if (items == null || items.length === 0)
+		return {
+			fieldMatch: {
+				message: `Each recipe needs at least one material`,
+			},
+		};
+	else {
+		return null;
+	}
 }

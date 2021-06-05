@@ -16,6 +16,8 @@ import { selectRouteParam } from "src/app/root.state";
 import { ToastActions } from "src/app/features/toasts";
 import { Material } from "src/app/features/models";
 import { MaterialService } from "src/app/features/api-services/meterials.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { httpError } from "src/app/features/helper";
 
 export interface MaterialPageState {
 	data: Material | undefined | null;
@@ -26,7 +28,9 @@ export interface MaterialPageState {
 export class CreateMaterialPageStore extends ComponentStore<MaterialPageState> {
 	constructor(
 		protected store$: Store<never>,
-		private service: MaterialService
+		private service: MaterialService,
+		private router: Router,
+		private route: ActivatedRoute
 	) {
 		super({
 			data: null,
@@ -59,6 +63,7 @@ export class CreateMaterialPageStore extends ComponentStore<MaterialPageState> {
 					map((data) => {
 						if (data.error) throw data;
 						else if (!data.error) {
+							this.router.navigate([".."], { relativeTo: this.route });
 							this.store$.dispatch(
 								ToastActions.showToast({
 									message: {
@@ -72,28 +77,10 @@ export class CreateMaterialPageStore extends ComponentStore<MaterialPageState> {
 						}
 					}),
 					tap(() => this.requestFinished()),
-					catchError((p) =>
-						this.httpError(
-							(p.hasOwnProperty("error") && p.error) ||
-								"HTTP error Connection error"
-						)
-					)
+          catchError((p) => httpError(this.store$, p))
 				)
 			)
 		);
 	});
 
-	httpError(p: string) {
-		// Obecnej toad na HTTP error Connection error
-		this.store$.dispatch(
-			ToastActions.showToast({
-				message: {
-					severity: "error",
-					summary: "Server Error",
-					detail: p,
-				},
-			})
-		);
-		return of({});
-	}
 }

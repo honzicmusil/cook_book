@@ -15,6 +15,8 @@ import { selectRouteParam } from "src/app/root.state";
 import { ToastActions } from "src/app/features/toasts";
 import { Recipe } from "src/app/features/models";
 import { RecipesService } from "src/app/features/api-services/recipes.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { httpError } from "src/app/features/helper";
 
 export interface RecipePageState {
 	data: Recipe | undefined | null;
@@ -25,7 +27,9 @@ export interface RecipePageState {
 export class CreateRecipePageStore extends ComponentStore<RecipePageState> {
 	constructor(
 		protected store$: Store<never>,
-		private service: RecipesService
+		private service: RecipesService,
+		private router: Router,
+		private route: ActivatedRoute
 	) {
 		super({
 			data: null,
@@ -58,6 +62,7 @@ export class CreateRecipePageStore extends ComponentStore<RecipePageState> {
 					map((data) => {
 						if (data.error) throw data;
 						else if (!data.error) {
+							this.router.navigate([".."], { relativeTo: this.route });
 							this.store$.dispatch(
 								ToastActions.showToast({
 									message: {
@@ -66,34 +71,13 @@ export class CreateRecipePageStore extends ComponentStore<RecipePageState> {
 										detail: `${data.name} was created`,
 									},
 								})
-								//TODO: redirect to grid?
 							);
 						}
 					}),
 					tap(() => this.requestFinished()),
-					catchError((p) =>
-						this.httpError(
-							(p.hasOwnProperty("error") && p.error) ||
-								"HTTP error Connection error"
-						)
-					)
+					catchError((p) => httpError(this.store$, p))
 				)
 			)
 		);
 	});
-
-	httpError(p: string) {
-		// Obecnej toad na HTTP error Connection error
-		console.log(p);
-		this.store$.dispatch(
-			ToastActions.showToast({
-				message: {
-					severity: "error",
-					summary: "Server Error",
-					detail: p,
-				},
-			})
-		);
-		return of({});
-	}
 }
