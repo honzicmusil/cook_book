@@ -2,17 +2,8 @@ import { Injectable } from "@angular/core";
 import { Store } from "@ngrx/store";
 import { ComponentStore } from "@ngrx/component-store";
 
-import { Observable, of } from "rxjs";
-import {
-	catchError,
-	exhaustMap,
-	map,
-	tap,
-	withLatestFrom,
-} from "rxjs/operators";
-import { MATERIALS_GRID_TEST_DATA } from "../../components";
-import { LazyLoadEvent } from "primeng/api";
-import { selectRouteParam } from "src/app/root.state";
+import { Observable } from "rxjs";
+import { catchError, exhaustMap, map, tap } from "rxjs/operators";
 import { ToastActions } from "src/app/features/toasts";
 import { Material } from "src/app/features/models";
 import { MaterialService } from "src/app/features/api-services/meterials.service";
@@ -72,15 +63,13 @@ export class CreateMaterialPageStore extends ComponentStore<MaterialPageState> {
 										detail: `${data.name} was created`,
 									},
 								})
-								//TODO: redirect to grid?
 							);
 						}
 					}),
 					tap(() => this.requestFinished()),
-          catchError((p) => httpError(this.store$, p))
+					catchError((p) => httpError(this.store$, p))
 				)
 			)
 		);
 	});
-
 }

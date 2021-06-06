@@ -22,16 +22,4 @@
 <p-card *ngIf="materialDetailPageStore.editMode$ | async">
   <cook-book-edit-material-form [data]="materialDetailPageStore.data$ | async" (formSubmit)="formSubmit($event)">
   </cook-book-edit-material-form>
-  <!-- <form [formGroup]="form" (ngSubmit)="onFormSubmit(model)">
-    <div class="p-grid">
-      <div class="p-col-12">
-        <formly-form [form]="form" [fields]="fields" [model]="model" [options]="options">
-        </formly-form>
-      </div>
-      <div class="p-col-12">
-        <button pButton type="submit" [label]="'send'"></button>
-      </div>
-    </div>
-  </form> -->
-
 </p-card>
