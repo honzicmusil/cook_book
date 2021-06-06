@@ -1,4 +1,5 @@
 
+// General function for response payload creation
 function createErrorPayload(e) {
     return {
         error: {
@@ -8,7 +9,9 @@ function createErrorPayload(e) {
     };
 }
 
+// general function for exception creation
 function createException(message, code) {
+    console.error(message)
     const e = new Error(message);
     e.code = code;
     e.message = message
