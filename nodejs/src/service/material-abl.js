@@ -170,19 +170,19 @@ const remove = async (req, res) => {
 
 // function validates id parameter
 function isIdValid(id) {
-	return id && typeof id === "string" && id.length === 36;
+	return id && typeof id === "string" && id.length <= 36;
 }
 
 // function validates name parameter
 function isNameValid(name) {
 	return name &&
 		typeof name === "string" &&
-		name.length < 30;
+		name.length <= 30;
 }
 
 // function validates unit parameter
 function isUnitValid(unit) {
-	return unit && typeof unit === "string" && unit.length < 10;
+	return unit && typeof unit === "string" && unit.length <= 10;
 }
 
 // exports functions from the module

@@ -209,12 +209,12 @@ function isIdValid(id) {
 
 // function validates name parameter
 function isNameValid(name) {
-	return name && typeof name === "string" && name.length < 30;
+	return name && typeof name === "string" && name.length <= 30;
 }
 
 // function validates description parameter
 function isDescriptionValid(description) {
-	return description && typeof description === "string" && description.length < 256;
+	return description && typeof description === "string" && description.length <= 256;
 }
 
 // function validates preparationLength parameter
